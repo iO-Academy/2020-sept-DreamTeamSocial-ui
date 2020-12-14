@@ -39,7 +39,7 @@ export default class Login extends Component{
             //This is probably not the best way to authenticate a user. A check on the status code would be better.
         .then(response => {
             console.log(response.data)
-            if (response.data === 'No User exists') {
+            if (!response.data.success) {
                 console.log(response.data)
             } else {
                 //Need to store the user data in local storage
