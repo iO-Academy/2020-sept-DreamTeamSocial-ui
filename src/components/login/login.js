@@ -43,11 +43,12 @@ export default class Login extends Component{
                 console.log(response.data)
             } else {
                 //Need to store the user data in local storage
-                Object.keys(response.data).forEach((item) => {
-                    localStorage.setItem(item, response.data[item])
+                Object.keys(response.data.info).forEach((item) => {
+                    localStorage.setItem(item, response.data.info[item])
                 });
                 //This pushes you to the profile page on successful login.
-                this.props.history.push('/profile');
+                const username = localStorage.getItem('username')
+                this.props.history.push('/profile/' + username);
                 //This is how you store an array
                 // localStorage.setItem('array', JSON.stringify(['Hello', 'Super']))
                 // //This is how to retrieve array
@@ -59,9 +60,11 @@ export default class Login extends Component{
     render() {
         // Use this code to redirect based on if user is logged in.
         const isAuthenticated = localStorage.getItem('isAuthenticated');
+ console.log(isAuthenticated)
 
         if(isAuthenticated) {
-            return <Redirect to='/profile'/>
+            const username = localStorage.getItem('username')
+            return <Redirect to={'/profile/' + username}/>
         } else {
             return (
                 <div className="main_container">

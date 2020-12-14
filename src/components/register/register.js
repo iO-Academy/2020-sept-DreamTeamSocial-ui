@@ -115,6 +115,7 @@ class Register extends Component{
             console.log(error)
         })
     };
+
     render() {
         // Use this code to redirect based on if user is logged in.
         const isAuthenticated = localStorage.getItem('isAuthenticated');
@@ -133,7 +134,6 @@ class Register extends Component{
                                     <Button name='Login'/>
                                 </Link>
                             </div>
-
                         <form onSubmit={this.handleSubmit}>
                             <Header title='Register'/>
                             <ul className="form_wrapper">
