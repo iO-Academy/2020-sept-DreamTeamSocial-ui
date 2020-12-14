@@ -94,7 +94,7 @@ class Register extends Component{
                 bio: bio
             },
             withCredentials: true,
-            url: "http://localhost:3001/register",
+            url: "http://localhost:3001/user",
         })
         .then((response) => {
             console.log(response)

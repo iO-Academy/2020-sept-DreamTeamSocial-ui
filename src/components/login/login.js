@@ -23,6 +23,7 @@ export default class Login extends Component{
             [name]: value
         });
     };
+
     handleSubmit  = (event) => {
         event.preventDefault();
         const { username, password} = this.state
@@ -33,12 +34,11 @@ export default class Login extends Component{
                 password: password,
             },
             withCredentials: true,
-            url: "http://localhost:3001/login",
+            url: "http://localhost:3001/user/login",
         })
             //This is probably not the best way to authenticate a user. A check on the status code would be better.
         .then(response => {
             console.log(response.data)
-            const isAuthenticated = response.data.isAuthentiicated
             if (response.data === 'No User exists') {
                 console.log(response.data)
             } else {
