@@ -104,6 +104,7 @@ class Register extends Component{
             console.log(error)
         })
     };
+
     render() {
         // Use this code to redirect based on if user is logged in.
         const isAuthenticated = localStorage.getItem('isAuthenticated');
@@ -122,7 +123,6 @@ class Register extends Component{
                                     <Button name='Login'/>
                                 </Link>
                             </div>
-
                         <form onSubmit={this.handleSubmit}>
                             <Header title='Register'/>
                             <ul className="form_wrapper">
@@ -138,7 +138,7 @@ class Register extends Component{
                                 <p></p>
                                 <li className="form_row">
                                     <Label title="Password: " />
-                                    <Input className='password-input' style={{borderColor: this.state.color}} type="password" name="password" handleChange={this.strengthIndicator}/>
+                                    <Input className='password-input' style={{borderColor: this.state.color}} type="password" name="password" handleChange={this.handleChange}/>
                                 </li>
                                 <p className="requirement_password">Password must be min 8 characters and include lowercase letters and at least one numerical digit.</p>
                                 <li className="form_row">
