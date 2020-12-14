@@ -1,30 +1,45 @@
 import React, { Component } from 'react';
 import '../../App.css';
-import { Redirect } from 'react-router-dom';
+import {Redirect} from 'react-router-dom';
+import {NavBar} from "../navbar";
+import {Branding} from "../branding";
+import {UserInfo} from "../userInfo";
 
 class Profile extends Component {
     constructor(props) {
         super(props);
+        this.state = {profileUser: props.match.params.user};
     }
 
-    //This function makes requests runs after the component loads which will be usefull to load profile info.
-    // componentDidMount() {
-    // }
 
     render() {
-        // Use this code to redirect based on if user is logged in.
+        //Use this code to redirect based on if user is logged in.
         const isAuthenticated = localStorage.getItem('isAuthenticated');
 
-        if(isAuthenticated) {
-            return (
-                <div>
-                    <h1>Profile</h1>
-                </div>
-            )
+        if (isAuthenticated) {
+            if (this.state.profileUser === localStorage.getItem('username')) {
+                return (
+                    <div>
+                        <NavBar/>
+                        <Branding/>
+                        <UserInfo user="ownProfile"/>
+                        <p>Edit</p>
+                    </div>
+                )
+            } else {
+                return (
+                    <div>
+                        <NavBar/>
+                        <Branding/>
+                        <UserInfo user={this.state.profileUser}/>
+                        <p>Follow</p>
+                    </div>
+                )
+            }
         } else {
             return <Redirect to='/'/>
         }
     }
 }
 
-export default Profile
+export default Profile;

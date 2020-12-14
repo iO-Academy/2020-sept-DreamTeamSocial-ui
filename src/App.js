@@ -11,6 +11,7 @@ class App extends Component {
 
     render()
     {
+
         return (
             //This allows you to specify a route
             //The <Switch> means it will only match one url
@@ -21,7 +22,7 @@ class App extends Component {
                         <Route exact path="/" render={(routeProps) => (<Login {...routeProps} />)}/>
                         <Route path="/register" render={(routeProps) => (<Register {...routeProps} />)}/>
                         <Route path="/timeline" render={(routeProps) => (<Timeline {...routeProps} />)}/>
-                        <Route path="/profile" render={(routeProps) => (<Profile {...routeProps} />)}/>
+                        <Route path="/profile/:user" render={(routeProps) => (<Profile {...routeProps} />)}/>
                     </Switch>
                 </div>
             </Router>
