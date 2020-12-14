@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
-import '../../App.css';
+import './register.css';
 import {Link, Redirect} from "react-router-dom";
 import axios from "axios";
+import Button from "../button";
+import Header from "../header";
+import Label from "../label";
+import Input from "../input";
+import TextareaInput from "../textareaInput";
 
 class Register extends Component{
     state = {
@@ -89,7 +94,7 @@ class Register extends Component{
                 bio: bio
             },
             withCredentials: true,
-            url: "http://localhost:3001/register",
+            url: "http://localhost:3001/user",
         })
         .then((response) => {
             console.log(response)
@@ -99,6 +104,7 @@ class Register extends Component{
             console.log(error)
         })
     };
+
     render() {
         // Use this code to redirect based on if user is logged in.
         const isAuthenticated = localStorage.getItem('isAuthenticated');
@@ -107,22 +113,51 @@ class Register extends Component{
             return <Redirect to='/profile'/>
         } else {
             return (
-                <div>
-                    <form onSubmit={this.handleSubmit}>
-                        <h1>Register</h1>
-                        <input className='password-input' type="text" name="username" placeholder='username' onChange={this.handleChange}/>
-                        <input className='password-input' style={{borderColor: this.state.color}} type="password" name="password" placeholder='password' onChange={this.strengthIndicator}/>
-                        <input className='password-input' type="text" name="email" placeholder='email' onChange={this.handleChange}/>
-                        <input className='password-input' type="text" name="bio" placeholder='bio' onChange={this.handleChange}/>
-                        <button>Submit</button>
-                    </form>
-                    <Link to='/'>
-                        <h1>Login</h1>
-                    </Link>
+                <div className="main_container">
+                    <div className="logo_box">
+                        <img src="TILTime-logo.png" alt="Logo"/>
+                    </div>
+                        <div className='container'>
+                            <div className="link_button">
+                                <Link to='/'>
+                                    <Button name='Login'/>
+                                </Link>
+                            </div>
+                        <form onSubmit={this.handleSubmit}>
+                            <Header title='Register'/>
+                            <ul className="form_wrapper">
+                                <li className="form_row">
+                                    <Label title="Choose Username: " />
+                                    <Input className='password-input' type="text" name="username" handleChange={this.handleChange}/>
+                                </li>
+                                <p className="requirement_username">Must not contain spaces or special characters.</p>
+                                <li className="form_row">
+                                    <Label title="Email: " />
+                                    <Input className='password-input' type="text" name="email" handleChange={this.handleChange}/>
+                                </li>
+                                <p></p>
+                                <li className="form_row">
+                                    <Label title="Password: " />
+                                    <Input className='password-input' style={{borderColor: this.state.color}} type="password" name="password" handleChange={this.handleChange}/>
+                                </li>
+                                <p className="requirement_password">Password must be min 8 characters and include lowercase letters and at least one numerical digit.</p>
+                                <li className="form_row">
+                                    <Label title="Bio: " />
+                                    <TextareaInput rows="5" cols="70.5" name="bio"  handleChange={this.handleChange}/>
+                                </li>
+                                <p className="requirement_bio">Tell us about you! Max length 500 characters.</p>
+                            <Button name="Submit"/>
+                            </ul>
+                        </form>
+                            <div className="error_msg">
+                                <p>Your information does not meet requirements, please try again.</p>
+                            </div>
+                    </div>
                 </div>
             )
         }
     }
 
 }
-export default Register
+export default Register;
+
