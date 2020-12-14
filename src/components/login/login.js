@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import '../../App.css';
 import {Link, Redirect} from "react-router-dom";
 import axios from "axios";
-
 export default class Login extends Component{
 
     constructor(props) {
@@ -61,16 +60,27 @@ export default class Login extends Component{
             return <Redirect to='/profile'/>
         } else {
             return (
-                <div>
+                <div className="main_container">
+                <div className='container'>
+                    <div className="link_button">
+                        <Link to='/register'>
+                             <button>Register</button>
+                        </Link>
+                    </div>
                     <form onSubmit={this.handleSubmit}>
                         <h1>Login</h1>
-                        <input type="text" name="username" placeholder='username' onChange={this.handleChange}/>
-                        <input type="password" name="password" placeholder='password' onChange={this.handleChange}/>
+                        <ul className="form_wrapper">
+                           <li class="form_row">
+                               <label>Username:</label>
+                               <input type="text" name="username" onChange={this.handleChange}/>
+                           </li>
+                            <li className="form_row">
+                            <label>Password:</label><input type="password" name="password" onChange={this.handleChange}/>
+                            </li>
                         <button>Submit</button>
+                        </ul>
                     </form>
-                    <Link to='/register'>
-                        <h1>Register</h1>
-                    </Link>
+                </div>
                 </div>
             )
         }

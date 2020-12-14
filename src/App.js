@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import './App.css';
 //This is the stuff you need for routing
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Login from "./components/pages/login";
-import Register from "./components/pages/register";
-import Profile from "./components/pages/profile";
-import Timeline from "./components/pages/timeline";
+import Login from "./components/login/login";
+import Register from "./components/register/register";
+import Profile from "./components/profile/profile";
+import Timeline from "./components/timeline/timeline";
 
 class App extends Component {
 
