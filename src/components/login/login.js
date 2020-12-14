@@ -26,7 +26,7 @@ export default class Login extends Component{
 
     handleSubmit  = (event) => {
         event.preventDefault();
-        const { username, password} = this.state
+        const { username, password } = this.state
         axios({
             method: "POST",
             data: {

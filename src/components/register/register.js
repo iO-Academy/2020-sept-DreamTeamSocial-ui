@@ -30,7 +30,7 @@ class Register extends Component{
         return new RegExp(/[!#@$%^&*)(+=._-]/).test(value);
     }
     strengthColor = (count) => {
-        if (count === 0) {
+        if (count <= 1) {
             this.setState({
                 color: "#ccc"
             })
@@ -57,7 +57,21 @@ class Register extends Component{
             })
         }
     }
-    strengthIndicator = (event) => {
+
+    handleChange  = (event) => {
+        const {name, value} = event.target;
+        console.log(this.state.password);
+        this.setState({
+            [name]: value
+        });
+    };
+
+    passwordHandler = (event) => {
+        const {name, value} = event.target;
+        console.log(this.state.password);
+        this.setState({
+            [name]: value
+        });
         let strengths = 0;
         if (event.target.value.length > 5)
             strengths++;
@@ -67,21 +81,18 @@ class Register extends Component{
             strengths++;
         if (this.hasSpecial(event.target.value))
             strengths++;
-            strengths++;
+        strengths++;
         if (this.hasMixed(event.target.value))
             strengths++
         this.setState({
             strength: strengths
         })
+        console.log(strengths)
+        console.log(this.state.color);
+        console.log(this.state.password);
         this.strengthColor(strengths);
     }
 
-    handleChange  = (event) => {
-        const {name, value} = event.target;
-        this.setState({
-            [name]: value
-        });
-    };
     handleSubmit  = (event) => {
         event.preventDefault();
         const { username, password, email, bio} = this.state
@@ -138,7 +149,7 @@ class Register extends Component{
                                 <p></p>
                                 <li className="form_row">
                                     <Label title="Password: " />
-                                    <Input className='password-input' style={{borderColor: this.state.color}} type="password" name="password" handleChange={this.strengthIndicator}/>
+                                    <input className='password-input' style={{borderColor: this.state.color}} type="password" name="password" onChange={this.passwordHandler}/>
                                 </li>
                                 <p className="requirement_password">Password must be min 8 characters and include lowercase letters and at least one numerical digit.</p>
                                 <li className="form_row">
