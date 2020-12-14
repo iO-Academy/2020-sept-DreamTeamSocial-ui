@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
-import '../../App.css';
+import './login.css';
 import {Link, Redirect} from "react-router-dom";
 import axios from "axios";
+import Button from "../button";
+import Header from "../header";
+import Label from "../label";
+import Input from "../input";
 export default class Login extends Component{
 
     constructor(props) {
@@ -61,29 +65,35 @@ export default class Login extends Component{
         } else {
             return (
                 <div className="main_container">
-                <div className='container'>
-                    <div className="link_button">
-                        <Link to='/register'>
-                             <button>Register</button>
-                        </Link>
+                    <div className="logo_box">
+                        <img src="TILTime-logo.png" alt="Logo" />
                     </div>
-                    <form onSubmit={this.handleSubmit}>
-                        <h1>Login</h1>
-                        <ul className="form_wrapper">
-                           <li class="form_row">
-                               <label>Username:</label>
-                               <input type="text" name="username" onChange={this.handleChange}/>
-                           </li>
-                            <li className="form_row">
-                            <label>Password:</label><input type="password" name="password" onChange={this.handleChange}/>
-                            </li>
-                        <button>Submit</button>
-                        </ul>
-                    </form>
-                </div>
+                    <div className='container'>
+                        <div className="link_button">
+                            <Link to='/register'>
+                                 <Button name='Register'/>
+                            </Link>
+                        </div>
+                        <form onSubmit={this.handleSubmit}>
+                            <Header title='Login'/>
+                            <ul className="form_wrapper">
+                               <li className="form_row">
+                                   <Label title='Username:'/>
+                                   <Input type="text" name="username" handleChange={this.handleChange}/>
+                               </li>
+                                <li className="form_row">
+                                    <Label title='Password:'/>
+                                    <Input type="password" name="password" handleChange={this.handleChange}/>
+                                </li>
+                                <Button name='Enter'/>
+                            </ul>
+                        </form>
+                            <div className="error_msg">
+                                <p>Your username or password was not recognised, please try again.</p>
+                            </div>
+                    </div>
                 </div>
             )
         }
     }
-
 }

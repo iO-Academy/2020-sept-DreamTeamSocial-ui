@@ -10,7 +10,7 @@ export class Button extends Component {
 
     render() {
         return (
-            <button data-id={this.props.id} onClick={this.props.click}>{this.state.name}</button>
+            <button onClick={this.props.click}>{this.state.name}</button>
         )
     }
 }
