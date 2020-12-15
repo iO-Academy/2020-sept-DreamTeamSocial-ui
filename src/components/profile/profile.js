@@ -5,6 +5,8 @@ import {NavBar} from "../navbar";
 import {Branding} from "../branding";
 import {UserInfo} from "../userInfo";
 import axios from "axios";
+import './profile.css';
+
 
 class Profile extends Component {
     constructor(props) {
@@ -23,7 +25,7 @@ class Profile extends Component {
             this.props.history.push('/');
         })
     }
-    
+
     getUserProfile = (username) => {
         axios({
             method: "GET",

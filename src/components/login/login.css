@@ -1,3 +1,7 @@
+.loginLogo {
+    height: 135px;
+    width: 365px;
+}
 
 .password_input {
     border: 5px solid #ccc;
