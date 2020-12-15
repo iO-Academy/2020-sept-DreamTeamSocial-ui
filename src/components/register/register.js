@@ -11,7 +11,7 @@ import TextareaInput from "../textareaInput";
 const validUsernameRegex = RegExp(/^[a-zA-Z0-9-_]{8,20}$/);
 const validEmailRegex =
     RegExp(/^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i);
-const validPasswordRegex = RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/);
+const validPasswordRegex = RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/);
 
 const validateForm = (errors) => {
     let valid = true;
@@ -32,6 +32,9 @@ class Register extends Component{
             email: null,
             password: null,
             bio: null,
+            loggedInUser: false,
+            databaseError: false,
+            databaseMessage: '',
             errors: {
                 username: '',
                 email: '',
@@ -39,6 +42,27 @@ class Register extends Component{
                 bio: '',
             }
         };
+    }
+
+    checkLoginStatus = async () => {
+        return axios({
+            method: "GET",
+            withCredentials: true,
+            url: "http://localhost:3001/user/loggedIn"
+        }).then( response => {
+            return response.data
+        }).catch( err => {
+            this.setState({databaseError: true, databaseMessage: "Couldn't connect to database"})
+        })
+    }
+
+    async componentDidMount() {
+        const response = await this.checkLoginStatus()
+        if (response.success) {
+            this.setState({loggedInUser: response.info.username});
+        } else {
+            this.setState({loggedInUser: false});
+        }
     }
 
     handleChange = (event) => {
@@ -63,7 +87,7 @@ class Register extends Component{
                 errors.password =
                    validPasswordRegex.test(value)
                         ? ''
-                        : 'Password must be at least 8 characters long, with at least one uppercase letter and one number.';
+                        : 'Password must be at least 8 characters long, with at least 1 uppercase letter, 1 lower case, 1 special character & 1 number.';
                 break;
             case 'bio':
                 errors.bio =
@@ -82,7 +106,6 @@ class Register extends Component{
     handleSubmit = (event) => {
         event.preventDefault();
         if (validateForm(this.state.errors)) {
-            console.info('Valid Form')
             const { username, password, email, bio} = this.state;
             axios({
                     method: "POST",
@@ -96,10 +119,9 @@ class Register extends Component{
                     url: "http://localhost:3001/user",
                 })
                 .then(response => {
-                    console.log(response.data)
                     if (!response.data.success) {
                         //Handle if registration fails
-                        console.log(response.data)
+                        this.setState({databaseError: true, databaseMessage: response.data.message})
                     } else {
                         axios({
                             method: "POST",
@@ -127,15 +149,17 @@ class Register extends Component{
         }
     }
 
+    databaseErrorMessage() {
+        if(this.state.databaseError) {
+            return <p className='error'>{this.state.databaseMessage}</p>
+        }
+    }
+
     render() {
         const {errors} = this.state;
-        // Use this code to redirect based on if user is logged in.
-        const isAuthenticated = localStorage.getItem('isAuthenticated');
-        console.log(isAuthenticated)
 
-        if(isAuthenticated) {
-            const username = localStorage.getItem('username')
-            return <Redirect to={'/profile/' + username}/>
+        if(this.state.loggedInUser) {
+            return <Redirect to={'/profile/' + this.state.loggedInUser}/>
         } else {
             return (
                 <div className="main_container">
@@ -177,6 +201,7 @@ class Register extends Component{
                                 <p className='error requirement_bio'>{errors.bio}</p>}
                                 <Button name="Submit"/>
                             </ul>
+                            <div>{this.databaseErrorMessage()}</div>
                         </form>
                     </div>
                 </div>
