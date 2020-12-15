@@ -69,7 +69,7 @@ class Profile extends Component {
                     return (
                         <div>
                             <NavBar currentUser={this.state.loggedInUser}/>
-                            <Branding/>
+                            <Branding className="profile_logo"/>
                             <UserInfo bio={this.state.UserProfile.bio} username={this.state.UserProfile.username}/>
                             {this.followButton()}
                         </div>

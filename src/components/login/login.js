@@ -16,6 +16,29 @@ export default class Login extends Component{
         this.state = {
             username: '',
             password: '',
+            loggedInUser: false,
+            databaseError: false,
+            databaseMessage: ''
+        }
+    }
+    checkLoginStatus = async () => {
+        return axios({
+            method: "GET",
+            withCredentials: true,
+            url: "http://localhost:3001/user/loggedIn"
+        }).then( response => {
+            return response.data
+        }).catch( err => {
+            this.props.history.push('/');
+        })
+    }
+
+    async componentDidMount() {
+        const response = await this.checkLoginStatus()
+        if (response.success) {
+            this.setState({loggedInUser: response.info.username});
+        } else {
+            this.props.history.push('/');
         }
     }
 
@@ -40,20 +63,24 @@ export default class Login extends Component{
         })
         .then(response => {
             if (!response.data.success) {
-                console.log(response.data)
+                this.setState({databaseError: true, databaseMessage: response.data.message})
             } else {
-                // this is where the local storage was
+                this.props.history.push('/profile/' + this.state.username)
             }
         })
     };
+
+    databaseErrorMessage() {
+        if(this.state.databaseError) {
+            return <p className='error'>{this.state.databaseMessage}</p>
+        }
+    }
+
     render() {
         // Use this code to redirect based on if user is logged in.
-        const isAuthenticated = localStorage.getItem('isAuthenticated');
-        console.log(isAuthenticated)
 
-        if(isAuthenticated) {
-            const username = localStorage.getItem('username')
-            return <Redirect to={'/profile/' + username}/>
+        if(this.state.loggedInUser) {
+            return <Redirect to={'/profile/' + this.state.loggedInUser}/>
         } else {
             return (
                 <div className="main_container">
@@ -78,9 +105,7 @@ export default class Login extends Component{
                                 <Button name='Enter'/>
                             </ul>
                         </form>
-                            <div className="error_msg">
-                                <p>Your username or password was not recognised, please try again.</p>
-                            </div>
+                        <div>{this.databaseErrorMessage()}</div>
                     </div>
                 </div>
             )
