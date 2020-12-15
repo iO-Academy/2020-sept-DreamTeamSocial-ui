@@ -3,14 +3,9 @@ import './button.css';
 
 export class Button extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {name: props.name}
-    }
-
     render() {
         return (
-            <button onClick={this.props.click}>{this.state.name}</button>
+            <button onClick={this.props.click}>{this.props.name}</button>
         )
     }
 }

@@ -12,11 +12,10 @@ export default class Login extends Component{
 
     constructor(props) {
         super(props);
-    }
-
-    state = {
-        username: '',
-        password: '',
+        this.state = {
+            username: '',
+            password: '',
+        }
     }
 
     handleChange  = (event) => {
@@ -38,24 +37,11 @@ export default class Login extends Component{
             withCredentials: true,
             url: "http://localhost:3001/user/login",
         })
-            //This is probably not the best way to authenticate a user. A check on the status code would be better.
         .then(response => {
-            console.log(response.data)
             if (!response.data.success) {
                 console.log(response.data)
             } else {
-                //Need to store the user data in local storage
-                Object.keys(response.data.info).forEach((item) => {
-                    localStorage.setItem(item, response.data.info[item])
-                });
-                //This pushes you to the profile page on successful login.
-                const username = localStorage.getItem('username')
-                this.props.history.push('/profile/' + username);
-                //This is how you store an array
-                // localStorage.setItem('array', JSON.stringify(['Hello', 'Super']))
-                // //This is how to retrieve array
-                // var storedNames = JSON.parse(localStorage.getItem('array'));
-                // console.log(response.data);
+                // this is where the local storage was
             }
         })
     };
