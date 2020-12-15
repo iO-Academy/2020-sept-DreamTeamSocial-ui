@@ -6,6 +6,9 @@ import {Branding} from "../branding";
 import {UserInfo} from "../userInfo";
 import axios from "axios";
 import './profile.css';
+import Header from "../header";
+import TextareaInput from "../textareaInput";
+import Button from "../button";
 
 
 class Profile extends Component {
@@ -64,6 +67,22 @@ class Profile extends Component {
         // } button not needed yet
     }
 
+    addTILForm() {
+        return <div className="add_TIL_container">
+            <form>
+                <Header title="Add New Thing I learnt" />
+                    <ul className="form_wrapper">
+                        <li className="form_row">
+                            <TextareaInput className="TIL_textarea" rows="3" name="New TIL"
+                                           placeholder="What did you learn today?"/>
+                        </li>
+                    </ul>
+                    <p>Max 255 characters</p>
+                    <Button name="Add TIL"/>
+            </form>
+        </div>
+    }
+
     render() {
         if (this.state.responsedata)
             if (this.state.loggedInUser) {
@@ -73,6 +92,7 @@ class Profile extends Component {
                             <Branding className="profile_logo"/>
                             <UserInfo bio={this.state.UserProfile.bio} username={this.state.UserProfile.username}/>
                             {this.followButton()}
+                            {this.addTILForm()}
                         </div>
                     )
             } else {

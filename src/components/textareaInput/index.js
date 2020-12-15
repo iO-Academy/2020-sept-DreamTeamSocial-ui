@@ -4,7 +4,7 @@ export class TextareaInput extends Component {
 
     render() {
         return (
-            <textarea rows={this.props.rows} name={this.props.name} placeholder={this.props.placeholder} onChange={this.props.handleChange} />
+            <textarea className={this.props.className} rows={this.props.rows} name={this.props.name} placeholder={this.props.placeholder} onChange={this.props.handleChange} />
         )
     }
 }

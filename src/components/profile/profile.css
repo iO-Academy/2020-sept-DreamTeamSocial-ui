@@ -1,7 +1,64 @@
 .profile_logo {
     height: 135px;
     width: 365px;
-    position: fixed;
-    top: 0;
-    left: 50%;
+    position: relative;
+    margin-left: 350px;
+}
+
+.TIL_textarea {
+
+}
+
+.add_TIL_container {
+    display: flex;
+    min-height: 300px;
+    width: 50%;
+    min-width: 800px;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-items: stretch;
+    padding: 20px 20px;
+    margin-left: 350px;
+    border-radius: 10px;
+    background-color: #31AFB4;
+}
+
+/*Form Styling*/
+
+form{
+    width: 100%;
+    min-width: 600px;
+    margin-top: 20px;
+}
+
+.form_wrapper {
+    list-style-type: none;
+    padding: 0;
+    border-radius: 3px;
+}
+
+.form_row {
+    display: flex;
+    justify-content: flex-end;
+    padding: .5em;
+}
+
+.form_row label {
+    padding: .5em .5em .5em 0;
+    flex: 1;
+}
+
+.form_row input {
+    flex: 3;
+}
+
+.form_row textarea {
+    flex: 3;
+}
+
+.form_row button {
+    background: gray;
+    color: white;
+    border: 0;
+    width: 70%;
 }
