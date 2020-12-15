@@ -41,16 +41,6 @@ class Register extends Component{
         };
     }
 
-
-    // state = {
-    //     username: '',
-    //     password: '',
-    //     email: '',
-    //     bio: '',
-    //     color: '#ccc',
-    //     strength: '',
-    // }
-
     handleChange = (event) => {
         event.preventDefault();
         const { name, value } = event.target;
@@ -116,30 +106,6 @@ class Register extends Component{
         }
     }
 
-
-    // handleSubmit  = (event) => {
-    //     event.preventDefault();
-    //     const { username, password, email, bio} = this.state
-    //     axios({
-    //         method: "POST",
-    //         data: {
-    //             username: username,
-    //             password: password,
-    //             email: email,
-    //             bio: bio
-    //         },
-    //         withCredentials: true,
-    //         url: "http://localhost:3001/user",
-    //     })
-    //     .then((response) => {
-    //         console.log(response)
-    //         //Need to write code to check if user was successfully created and then log them in.
-    //     })
-    //     .catch((error) => {
-    //         console.log(error)
-    //     })
-    // };
-
     render() {
         // Use this code to redirect based on if user is logged in.
         const isAuthenticated = localStorage.getItem('isAuthenticated');
@@ -164,25 +130,25 @@ class Register extends Component{
                             <ul className="form_wrapper">
                                 <li className="form_row">
                                     <Label title="Choose Username: " />
-                                    <Input className='password-input' type="text" name="username" handleChange={this.handleChange}/>
+                                    <Input type="text" name="username" handleChange={this.handleChange}/>
                                 </li>
                                 {errors.username.length > 0 &&
                                 <p className='error requirement_username'>{errors.username}</p>}
                                 <li className="form_row">
                                     <Label title="Email: " />
-                                    <Input className='password-input' type="text" name="email" handleChange={this.handleChange}/>
+                                    <Input type="text" name="email" handleChange={this.handleChange}/>
                                 </li>
                                 {errors.email.length > 0 &&
                                 <p className='error requirement_email'>{errors.email}</p>}
                                 <li className="form_row">
                                     <Label title="Password: " />
-                                    <Input className='password-input' style={{borderColor: this.state.color}} type="password" name="password" handleChange={this.handleChange}/>
+                                    <input type="password" name="password" onChange={this.handleChange}/>
                                 </li>
                                 {errors.password.length > 0 &&
                                 <p className='error requirement_password'>{errors.password}</p>}
                                 <li className="form_row">
                                     <Label title="Bio: " />
-                                    <TextareaInput className='password-input' rows="5" name="bio"  placeholder="Tell us about you! Max length 500 characters." handleChange={this.handleChange}/>
+                                    <TextareaInput rows="5" name="bio"  placeholder="Tell us about you! Max length 500 characters." handleChange={this.handleChange}/>
                                 </li>
                                 {errors.bio.length > 0 &&
                                 <p className='error requirement_bio'>{errors.bio}</p>}
