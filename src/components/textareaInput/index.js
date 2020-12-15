@@ -10,7 +10,7 @@ export class TextareaInput extends Component {
 
     render() {
         return (
-            <textarea rows={this.props.rows} cols={this.props.cols} name={this.props.name} onChange={this.props.handleChange} ></textarea>
+            <textarea rows={this.props.rows} name={this.props.name} placeholder={this.props.placeholder} onChange={this.props.handleChange} />
         )
     }
 }

@@ -1,3 +1,12 @@
+/*@font-face {*/
+/*    font-family: "Asap";*/
+/*    src: url('././public/Asap-Regular.ttf');*/
+/*}*/
+
+/** {*/
+/*    font-family:*/
+/*}*/
+
 
 .password-input {
     border: 5px solid #ccc;
@@ -17,7 +26,13 @@
 .requirement_username {
     font-size: 0.7rem;
     position: relative;
-    right: 70px;
+    left: 65px;
+}
+
+.requirement_email {
+    font-size: 0.7rem;
+    position: relative;
+    left: 65px;
 }
 
 textarea {
@@ -33,11 +48,15 @@ textarea {
 .requirement_password {
     font-size: 0.7rem;
     position: relative;
-    left: 68px;
+    left: 80px;
 }
 
 p {
     margin-top: 0;
+}
+
+.logo_box {
+    padding: 30px 0 30px 0;
 }
 
 .main_container {
@@ -45,6 +64,7 @@ p {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 100%;
 }
 
 .container {
@@ -56,15 +76,15 @@ p {
     flex-wrap: wrap;
     align-items: stretch;
     padding: 20px 20px;
-    margin-top: 50px;
+    margin-bottom: 100px;
+    margin-top: 10px;
     border-radius: 10px;
-    background-color: #31AFB4;
     border: 5px solid #31AFB4;
 }
 
 .link_button {
     position: relative;
-    left: 350px;
+    left: 370px;
 }
 
 
@@ -94,6 +114,10 @@ form{
 }
 
 .form_row input {
+    flex: 3;
+}
+
+.form_row textarea {
     flex: 3;
 }
 
