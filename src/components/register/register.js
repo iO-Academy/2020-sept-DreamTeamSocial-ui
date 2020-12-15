@@ -98,9 +98,9 @@ class Register extends Component{
                 .then(response => {
                     console.log(response.data)
                     if (!response.data.success) {
+                        //Handle if registration fails
                         console.log(response.data)
                     } else {
-                        console.log('hello')
                         axios({
                             method: "POST",
                             data: {
@@ -110,11 +110,16 @@ class Register extends Component{
                             withCredentials: true,
                             url: "http://localhost:3001/user/login",
                         }).then(response => {
-                                this.props.history.push('/profile/' + username);
+                                if(response.data.success) {
+                                    this.props.history.push('/profile/' + username);
+                                } else {
+                                    this.props.history.push('/');
+                                }
                             })
                     }
                 })
                 .catch((error) => {
+                    //sorry or servers are down please try again later
                     console.log(error)
                 })
         } else{
