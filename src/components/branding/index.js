@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import './index.css';
-
 
 export class Branding extends Component {
     render() {

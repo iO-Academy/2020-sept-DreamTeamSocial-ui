@@ -6,6 +6,7 @@ import Button from "../button";
 import Header from "../header";
 import Label from "../label";
 import Input from "../input";
+import {Branding} from "../branding";
 
 
 export default class Login extends Component{
@@ -56,9 +57,7 @@ export default class Login extends Component{
         } else {
             return (
                 <div className="main_container">
-                    <div className="logo_box">
-                        <img src="TILTime-logo.png" alt="Logo" />
-                    </div>
+                    <Branding className="loginLogo"/>
                     <div className='container'>
                         <div className="link_button">
                             <Link to='/register'>
