@@ -4,40 +4,72 @@ import {Redirect} from 'react-router-dom';
 import {NavBar} from "../navbar";
 import {Branding} from "../branding";
 import {UserInfo} from "../userInfo";
+import axios from "axios";
 
 class Profile extends Component {
     constructor(props) {
         super(props);
-        this.state = {profileUser: props.match.params.user};
+        this.state = {url: props.match.params.user, loggedInUser: '', UserProfile: '', loggedInUserProfile: false};
+    }
+
+    checkLoginStatus = () => {
+       // new api path, return an object that has the current logged in users info
+    }
+
+    getUserProfile = (username) => {
+        axios({
+            method: "GET",
+            withCredentials: true,
+            url: "http://localhost:3001/user/" + username
+        }).then( response => {
+            if (response.data.success) {
+                this.setState({userProfile: response.data.info})
+            } else {
+                this.setState({userProfile: {username: 'error could not find user', bio: ''}})
+            }
+        }).catch( err => {
+            console.log(err);
+        })
     }
 
 
-    render() {
-        //Use this code to redirect based on if user is logged in.
-        const isAuthenticated = localStorage.getItem('isAuthenticated');
-
-        if (isAuthenticated) {
-            if (this.state.profileUser === localStorage.getItem('username')) {
-                return (
-                    <div>
-                        <NavBar/>
-                        <Branding/>
-                        <UserInfo user="ownProfile"/>
-                        <p>Edit</p>
-                    </div>
-                )
+    componentDidMount() {
+        const response = this.checkLoginStatus();
+        if (response.data.success) {
+            this.setState({loggedInUser: response.data.info});
+            this.getUserProfile(this.state.url)
+            if (this.state.loggedInUser === this.state.url) {
+                this.setState({loggedInUserProfile: true})
             } else {
-                return (
-                    <div>
-                        <NavBar/>
-                        <Branding/>
-                        <UserInfo user={this.state.profileUser}/>
-                        <p>Follow</p>
-                    </div>
-                )
+                this.setState({loggedInUserProfile: false})
             }
         } else {
-            return <Redirect to='/'/>
+            // redirect here
+
+        }
+
+    }
+
+    editOrFollowButton() {
+        if(this.state.loggedInUserProfile) {
+            return <p>Edit</p>
+        } else {
+            return <p>Follow</p>
+        }
+    }
+
+    render() {
+        if (this.state.loggedInUser) {
+                return (
+                    <div>
+                        <NavBar/>
+                        <Branding/>
+                        <UserInfo bio={this.state.userProfile}/>
+                        {this.editOrFollowButton()}
+                    </div>
+                )
+        } else {
+            return (<Redirect to='/'/>)
         }
     }
 }
