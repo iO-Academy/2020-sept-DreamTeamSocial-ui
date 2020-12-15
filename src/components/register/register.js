@@ -95,8 +95,24 @@ class Register extends Component{
                     withCredentials: true,
                     url: "http://localhost:3001/user",
                 })
-                .then((response) => {
-                    console.log(response)
+                .then(response => {
+                    console.log(response.data)
+                    if (!response.data.success) {
+                        console.log(response.data)
+                    } else {
+                        console.log('hello')
+                        axios({
+                            method: "POST",
+                            data: {
+                                username: username,
+                                password: password,
+                            },
+                            withCredentials: true,
+                            url: "http://localhost:3001/user/login",
+                        }).then(response => {
+                                this.props.history.push('/profile/' + username);
+                            })
+                    }
                 })
                 .catch((error) => {
                     console.log(error)
@@ -107,12 +123,14 @@ class Register extends Component{
     }
 
     render() {
+        const {errors} = this.state;
         // Use this code to redirect based on if user is logged in.
         const isAuthenticated = localStorage.getItem('isAuthenticated');
-        const {errors} = this.state;
+        console.log(isAuthenticated)
 
         if(isAuthenticated) {
-            return <Redirect to='/profile'/>
+            const username = localStorage.getItem('username')
+            return <Redirect to={'/profile/' + username}/>
         } else {
             return (
                 <div className="main_container">
@@ -148,16 +166,13 @@ class Register extends Component{
                                 <p className='error requirement_password'>{errors.password}</p>}
                                 <li className="form_row">
                                     <Label title="Bio: " />
-                                    <TextareaInput rows="5" name="bio"  placeholder="Tell us about you! Max length 500 characters." handleChange={this.handleChange}/>
+                                    <TextareaInput rows="5" name="bio" placeholder="Tell us about you! Max length 500 characters." handleChange={this.handleChange}/>
                                 </li>
                                 {errors.bio.length > 0 &&
                                 <p className='error requirement_bio'>{errors.bio}</p>}
                                 <Button name="Submit"/>
                             </ul>
                         </form>
-                            <div className="error_msg">
-                                <p>Your information does not meet requirements, please try again.</p>
-                            </div>
                     </div>
                 </div>
             )

@@ -12,18 +12,9 @@ class Profile extends Component {
     // }
 
     render() {
-        // Use this code to redirect based on if user is logged in.
-        const isAuthenticated = localStorage.getItem('isAuthenticated');
-
-        if(isAuthenticated) {
-            return (
-                <div>
-                    <h1>Profile</h1>
-                </div>
-            )
-        } else {
-            return <Redirect to='/'/>
-        }
+        return (
+            <h1>Hello</h1>
+        )
     }
 }
 

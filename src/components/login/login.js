@@ -6,6 +6,8 @@ import Button from "../button";
 import Header from "../header";
 import Label from "../label";
 import Input from "../input";
+
+
 export default class Login extends Component{
 
     constructor(props) {
@@ -60,7 +62,7 @@ export default class Login extends Component{
     render() {
         // Use this code to redirect based on if user is logged in.
         const isAuthenticated = localStorage.getItem('isAuthenticated');
- console.log(isAuthenticated)
+        console.log(isAuthenticated)
 
         if(isAuthenticated) {
             const username = localStorage.getItem('username')
