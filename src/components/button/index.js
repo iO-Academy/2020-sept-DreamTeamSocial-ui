@@ -16,5 +16,3 @@ export class Button extends Component {
 }
 
 export default Button
-
-// work out how to put this in main page
