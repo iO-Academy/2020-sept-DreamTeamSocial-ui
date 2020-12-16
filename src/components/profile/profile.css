@@ -114,6 +114,9 @@ form{
 
 .add_til_form {
     text-align: center;
+    background-color: #31AFB4;
+    border-radius: 10px;
+    padding: 10px;
 }
 
 @media only screen and (max-width: 768px) {

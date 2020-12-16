@@ -17,7 +17,18 @@ import Input from "../input";
 class Profile extends Component {
     constructor(props) {
         super(props);
-        this.state = {url: props.match.params.user, loggedInUser: false, UserProfile: {username: '', bio: "I'm a happy little vegemite"}, loggedInUserProfile: false, responsedata: false};
+        this.state = {url: props.match.params.user,
+                    loggedInUser: false,
+                    tilPost: '',
+                    userTils: [],
+                    UserProfile: {
+                        username: '',
+                        bio: "I'm a happy little vegemite"
+                    },
+                    loggedInUserProfile: false,
+                    responsedata: false,
+                    databaseError: ''
+                };
     }
 
     checkLoginStatus = async () => {
@@ -54,6 +65,7 @@ class Profile extends Component {
         if (response.success) {
             this.setState({loggedInUser: response.info.username, responsedata: true});
             this.getUserProfile(this.state.url)
+            await this.getTilPosts()
             if (this.state.loggedInUser === this.state.url) {
                 this.setState({loggedInUserProfile: true})
             } else {
@@ -71,18 +83,99 @@ class Profile extends Component {
     }
 
     addTILForm() {
-        return <form className="add_til_form">
-                <Header title="Add New Thing I learnt" />
-                    <ul className="form_wrapper">
-                        <li className="form_row">
-                            <TextareaInput className="TIL_textarea" rows="3" name="New TIL"
-                                           placeholder="What did you learn today?"/>
-                        </li>
-                    </ul>
-                    <p>Max 255 characters</p>
-                    <Button name="Add TIL"/>
+        if (this.state.loggedInUserProfile) {
+            return <form onSubmit={this.sendNewTIL} className="add_til_form">
+                <Header title="Add New Thing I Learned:"/>
+                <ul className="form_wrapper">
+                    <li className="form_row">
+                        <TextareaInput className="TIL_textarea" rows="3" name="New TIL"
+                                       placeholder="What did you learn today?" handleChange={this.handleChange}/>
+                    </li>
+                </ul>
+                {this.databaseErrorMessage()}
+                <p>Max 255 characters</p>
+                <Button name="Add TIL"/>
             </form>
+        } else {
+            return <h1>Placeholder for follow</h1>
+        }
     }
+
+    getTilPosts = async () => {
+        return axios({
+            method: "GET",
+            withCredentials: true,
+            url: "http://localhost:3001/til/" + this.state.url
+        }).then( response => {
+            if(response.data.success){
+                this.setState({userTils: response.data.info})
+            } else {
+                this.setState({userTils: 'Nothing to see here'})
+            }
+        }).catch( err => {
+            this.setState({databaseError: 'Sorry your TILs were not retrieved.'})
+        })
+    }
+
+    formatDate(date) {
+       const splitTimestamp = date.split(/[T.]/);
+       const dateOfTil = splitTimestamp[0];
+       const timeOfTil = splitTimestamp[1];
+
+       return dateOfTil + ' at ' + timeOfTil
+    }
+
+
+    displayTILs() {
+        const userTils = this.state.userTils;
+        userTils.reverse()
+       return (
+            <div>
+                {userTils.map((post,i) => (
+                    <div key={i} className="add_til_form">
+                        <p>Posted by: {post.username} </p>
+                        <p>Posted at: {this.formatDate(post.createdAt)}</p>
+                        <p>{post.tilPost}</p>
+                    </div>)
+                )}
+            </div>
+       )
+    }
+
+
+    handleChange = (event) => {
+        event.preventDefault();
+        const value = event.target.value;
+        this.setState({tilPost: value})
+        console.log(this.state.tilPost)
+    }
+
+    databaseErrorMessage() {
+        if(this.state.databaseError) {
+            return <p className='error'>{this.state.databaseError}</p>
+        }
+    }
+
+    sendNewTIL = async (event) => {
+        event.preventDefault();
+            axios({
+            method: "POST",
+            data: {username: this.state.loggedInUser, tilPost: this.state.tilPost},
+            withCredentials: true,
+            url: "http://localhost:3001/til"
+        }).then( response => {
+            if(response.data.success){
+                this.setState({tilPost: '', databaseError: ''})
+                event.target.reset()
+                this.getTilPosts()
+            } else {
+                this.setState({databaseError: 'Sorry your TIL wasn\'t submitted, try again later.'})
+            }
+        }).catch( err => {
+            this.setState({databaseError: 'Sorry your TIL wasn\'t submitted, try again later.'})
+        })
+    }
+
 
     render() {
 
@@ -103,204 +196,8 @@ class Profile extends Component {
                                     <UserInfo bio={this.state.UserProfile.bio} username={this.state.UserProfile.username}/>
                                 </div>
                                 <div className="col-sm-12 col-md-9 til_container">
-                                    <h1>Start</h1>
                                     {this.addTILForm()}
-                                    <form className="add_til_form">
-                                        <label htmlFor="fname">First name:</label>
-                                        <input type="text" id="fname" name="fname" value="John"></input>
-                                        <label htmlFor="lname">Last name:</label>
-                                        <input type="text" id="lname" name="lname" value="Doe"></input>
-                                        <input type="submit" value="Submit"></input>
-                                    </form>
-                                    <form className="add_til_form">
-                                        <label htmlFor="fname">First name:</label>
-                                        <input type="text" id="fname" name="fname" value="John"></input>
-                                        <label htmlFor="lname">Last name:</label>
-                                        <input type="text" id="lname" name="lname" value="Doe"></input>
-                                        <input type="submit" value="Submit"></input>
-                                    </form>
-                                    <form className="add_til_form">
-                                        <label htmlFor="fname">First name:</label>
-                                        <input type="text" id="fname" name="fname" value="John"></input>
-                                        <label htmlFor="lname">Last name:</label>
-                                        <input type="text" id="lname" name="lname" value="Doe"></input>
-                                        <input type="submit" value="Submit"></input>
-                                    </form>
-                                    <form className="add_til_form">
-                                        <label htmlFor="fname">First name:</label>
-                                        <input type="text" id="fname" name="fname" value="John"></input>
-                                        <label htmlFor="lname">Last name:</label>
-                                        <input type="text" id="lname" name="lname" value="Doe"></input>
-                                        <input type="submit" value="Submit"></input>
-                                    </form>
-                                    <form className="add_til_form">
-                                        <label htmlFor="fname">First name:</label>
-                                        <input type="text" id="fname" name="fname" value="John"></input>
-                                        <label htmlFor="lname">Last name:</label>
-                                        <input type="text" id="lname" name="lname" value="Doe"></input>
-                                        <input type="submit" value="Submit"></input>
-                                    </form>
-                                    <form className="add_til_form">
-                                        <label htmlFor="fname">First name:</label>
-                                        <input type="text" id="fname" name="fname" value="John"></input>
-                                        <label htmlFor="lname">Last name:</label>
-                                        <input type="text" id="lname" name="lname" value="Doe"></input>
-                                        <input type="submit" value="Submit"></input>
-                                    </form>
-                                    <form className="add_til_form">
-                                        <label htmlFor="fname">First name:</label>
-                                        <input type="text" id="fname" name="fname" value="John"></input>
-                                        <label htmlFor="lname">Last name:</label>
-                                        <input type="text" id="lname" name="lname" value="Doe"></input>
-                                        <input type="submit" value="Submit"></input>
-                                    </form>
-                                    <form className="add_til_form">
-                                        <label htmlFor="fname">First name:</label>
-                                        <input type="text" id="fname" name="fname" value="John"></input>
-                                        <label htmlFor="lname">Last name:</label>
-                                        <input type="text" id="lname" name="lname" value="Doe"></input>
-                                        <input type="submit" value="Submit"></input>
-                                    </form>
-                                    <form className="add_til_form">
-                                        <label htmlFor="fname">First name:</label>
-                                        <input type="text" id="fname" name="fname" value="John"></input>
-                                        <label htmlFor="lname">Last name:</label>
-                                        <input type="text" id="lname" name="lname" value="Doe"></input>
-                                        <input type="submit" value="Submit"></input>
-                                    </form>
-                                    <form className="add_til_form">
-                                        <label htmlFor="fname">First name:</label>
-                                        <input type="text" id="fname" name="fname" value="John"></input>
-                                        <label htmlFor="lname">Last name:</label>
-                                        <input type="text" id="lname" name="lname" value="Doe"></input>
-                                        <input type="submit" value="Submit"></input>
-                                    </form>
-                                    <form className="add_til_form">
-                                        <label htmlFor="fname">First name:</label>
-                                        <input type="text" id="fname" name="fname" value="John"></input>
-                                        <label htmlFor="lname">Last name:</label>
-                                        <input type="text" id="lname" name="lname" value="Doe"></input>
-                                        <input type="submit" value="Submit"></input>
-                                    </form>
-                                    <form className="add_til_form">
-                                        <label htmlFor="fname">First name:</label>
-                                        <input type="text" id="fname" name="fname" value="John"></input>
-                                        <label htmlFor="lname">Last name:</label>
-                                        <input type="text" id="lname" name="lname" value="Doe"></input>
-                                        <input type="submit" value="Submit"></input>
-                                    </form>
-                                    <form className="add_til_form">
-                                        <label htmlFor="fname">First name:</label>
-                                        <input type="text" id="fname" name="fname" value="John"></input>
-                                        <label htmlFor="lname">Last name:</label>
-                                        <input type="text" id="lname" name="lname" value="Doe"></input>
-                                        <input type="submit" value="Submit"></input>
-                                    </form>
-                                    <form className="add_til_form">
-                                        <label htmlFor="fname">First name:</label>
-                                        <input type="text" id="fname" name="fname" value="John"></input>
-                                        <label htmlFor="lname">Last name:</label>
-                                        <input type="text" id="lname" name="lname" value="Doe"></input>
-                                        <input type="submit" value="Submit"></input>
-                                    </form>
-                                    <form className="add_til_form">
-                                        <label htmlFor="fname">First name:</label>
-                                        <input type="text" id="fname" name="fname" value="John"></input>
-                                        <label htmlFor="lname">Last name:</label>
-                                        <input type="text" id="lname" name="lname" value="Doe"></input>
-                                        <input type="submit" value="Submit"></input>
-                                    </form>
-                                    <form className="add_til_form">
-                                        <label htmlFor="fname">First name:</label>
-                                        <input type="text" id="fname" name="fname" value="John"></input>
-                                        <label htmlFor="lname">Last name:</label>
-                                        <input type="text" id="lname" name="lname" value="Doe"></input>
-                                        <input type="submit" value="Submit"></input>
-                                    </form>
-                                    <form className="add_til_form">
-                                        <label htmlFor="fname">First name:</label>
-                                        <input type="text" id="fname" name="fname" value="John"></input>
-                                        <label htmlFor="lname">Last name:</label>
-                                        <input type="text" id="lname" name="lname" value="Doe"></input>
-                                        <input type="submit" value="Submit"></input>
-                                    </form>
-                                    <form className="add_til_form">
-                                        <label htmlFor="fname">First name:</label>
-                                        <input type="text" id="fname" name="fname" value="John"></input>
-                                        <label htmlFor="lname">Last name:</label>
-                                        <input type="text" id="lname" name="lname" value="Doe"></input>
-                                        <input type="submit" value="Submit"></input>
-                                    </form>
-                                    <form className="add_til_form">
-                                        <label htmlFor="fname">First name:</label>
-                                        <input type="text" id="fname" name="fname" value="John"></input>
-                                        <label htmlFor="lname">Last name:</label>
-                                        <input type="text" id="lname" name="lname" value="Doe"></input>
-                                        <input type="submit" value="Submit"></input>
-                                    </form>
-                                    <form className="add_til_form">
-                                        <label htmlFor="fname">First name:</label>
-                                        <input type="text" id="fname" name="fname" value="John"></input>
-                                        <label htmlFor="lname">Last name:</label>
-                                        <input type="text" id="lname" name="lname" value="Doe"></input>
-                                        <input type="submit" value="Submit"></input>
-                                    </form>
-                                    <form className="add_til_form">
-                                        <label htmlFor="fname">First name:</label>
-                                        <input type="text" id="fname" name="fname" value="John"></input>
-                                        <label htmlFor="lname">Last name:</label>
-                                        <input type="text" id="lname" name="lname" value="Doe"></input>
-                                        <input type="submit" value="Submit"></input>
-                                    </form>
-                                    <form className="add_til_form">
-                                        <label htmlFor="fname">First name:</label>
-                                        <input type="text" id="fname" name="fname" value="John"></input>
-                                        <label htmlFor="lname">Last name:</label>
-                                        <input type="text" id="lname" name="lname" value="Doe"></input>
-                                        <input type="submit" value="Submit"></input>
-                                    </form>
-                                    <form className="add_til_form">
-                                        <label htmlFor="fname">First name:</label>
-                                        <input type="text" id="fname" name="fname" value="John"></input>
-                                        <label htmlFor="lname">Last name:</label>
-                                        <input type="text" id="lname" name="lname" value="Doe"></input>
-                                        <input type="submit" value="Submit"></input>
-                                    </form>
-                                    <form className="add_til_form">
-                                        <label htmlFor="fname">First name:</label>
-                                        <input type="text" id="fname" name="fname" value="John"></input>
-                                        <label htmlFor="lname">Last name:</label>
-                                        <input type="text" id="lname" name="lname" value="Doe"></input>
-                                        <input type="submit" value="Submit"></input>
-                                    </form>
-                                    <form className="add_til_form">
-                                        <label htmlFor="fname">First name:</label>
-                                        <input type="text" id="fname" name="fname" value="John"></input>
-                                        <label htmlFor="lname">Last name:</label>
-                                        <input type="text" id="lname" name="lname" value="Doe"></input>
-                                        <input type="submit" value="Submit"></input>
-                                    </form>
-                                    <form className="add_til_form">
-                                        <label htmlFor="fname">First name:</label>
-                                        <input type="text" id="fname" name="fname" value="John"></input>
-                                        <label htmlFor="lname">Last name:</label>
-                                        <input type="text" id="lname" name="lname" value="Doe"></input>
-                                        <input type="submit" value="Submit"></input>
-                                    </form>
-                                    <form className="add_til_form">
-                                        <label htmlFor="fname">First name:</label>
-                                        <input type="text" id="fname" name="fname" value="John"></input>
-                                        <label htmlFor="lname">Last name:</label>
-                                        <input type="text" id="lname" name="lname" value="Doe"></input>
-                                        <input type="submit" value="Submit"></input>
-                                    </form>
-                                    <form className="add_til_form">
-                                        <label htmlFor="fname">First name:</label>
-                                        <input type="text" id="fname" name="fname" value="John"></input>
-                                        <label htmlFor="lname">Last name:</label>
-                                        <input type="text" id="lname" name="lname" value="Doe"></input>
-                                        <input type="submit" value="Submit"></input>
-                                    </form>
+                                    {this.displayTILs()}
                                 </div>
                             </div>
                         </div>
