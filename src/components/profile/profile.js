@@ -10,6 +10,23 @@ import Header from "../header";
 import TextareaInput from "../textareaInput";
 import Button from "../button";
 
+import {
+    FacebookShareButton,
+    InstapaperShareButton,
+    LineShareButton,
+    LinkedinShareButton,
+    TwitterShareButton,
+    WhatsappShareButton,
+} from "react-share";
+import {
+    FacebookIcon,
+    FacebookMessengerIcon,
+    InstapaperIcon,
+    LinkedinIcon,
+    TwitterIcon,
+    WhatsappIcon,
+} from "react-share";
+
 class Profile extends Component {
     constructor(props) {
         super(props);
@@ -127,6 +144,18 @@ class Profile extends Component {
                           <p>Posted at: {this.formatDate(post.createdAt)}</p>
                       </div>
                         <p className="til_post_content">{post.tilPost}</p>
+                        <TwitterShareButton
+                            url="http://localhost:3000"
+                            quote='Hi'
+                            hashtag="#programing joke">
+                            <TwitterIcon logoFillColor="white" size={32} borderRadius='5px' />
+                        </TwitterShareButton>
+                        <FacebookShareButton
+                            url="https://www.facebook.com"
+                            quote='Hi'
+                            hashtag="#programing joke">
+                            <FacebookIcon logoFillColor="white" size={32} borderRadius='5px' />
+                        </FacebookShareButton>
                     </div>)
                 )}
             </>
