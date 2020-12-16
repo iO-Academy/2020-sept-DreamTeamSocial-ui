@@ -9,9 +9,7 @@ import './profile.css';
 import Header from "../header";
 import TextareaInput from "../textareaInput";
 import Button from "../button";
-import {Link} from "react-router-dom";
-import Label from "../label";
-import Input from "../input";
+
 
 
 class Profile extends Component {
@@ -84,7 +82,8 @@ class Profile extends Component {
 
     addTILForm() {
         if (this.state.loggedInUserProfile) {
-            return <form onSubmit={this.sendNewTIL} className="add_til_form">
+            return <div className="til_form">
+            <form className="til_form_enter" onSubmit={this.sendNewTIL} >
                 <Header title="Add New Thing I Learned:"/>
                 <ul className="form_wrapper">
                     <li className="form_row">
@@ -96,6 +95,7 @@ class Profile extends Component {
                 <p>Max 255 characters</p>
                 <Button name="Add TIL"/>
             </form>
+            </div>
         } else {
             return <h1>Placeholder for follow</h1>
         }
@@ -130,15 +130,15 @@ class Profile extends Component {
         const userTils = this.state.userTils;
         userTils.reverse()
        return (
-            <div>
+            <>
                 {userTils.map((post,i) => (
-                    <div key={i} className="add_til_form">
+                    <div key={i} className="til_form">
                         <p>Posted by: {post.username} </p>
                         <p>Posted at: {this.formatDate(post.createdAt)}</p>
                         <p>{post.tilPost}</p>
                     </div>)
                 )}
-            </div>
+            </>
        )
     }
 
@@ -185,14 +185,12 @@ class Profile extends Component {
                         <div className="container-fluid px-0">
                             <div className="row top_bar">
                                 <div className="col-sm-12 col-md-12 col-xl-12 branding">
-                                    <img className="brand_logo" src="/images/TILTime-logo-transparent.png" alt="tiltime logo" />
+                                 <Branding className="img"/>
                                 </div>
-                                <nav className="col-sm-12 col-md-3 col-xl-3 navigation">
-                                    <p><a href={'/profile/' + this.state.loggedInUser}>Profile</a></p>
-                                </nav>
                             </div>
                             <div className="row page_content">
                                 <div className="col-sm-12 col-md-3 user_info">
+                                    <NavBar />
                                     <UserInfo bio={this.state.UserProfile.bio} username={this.state.UserProfile.username}/>
                                 </div>
                                 <div className="col-sm-12 col-md-9 til_container">

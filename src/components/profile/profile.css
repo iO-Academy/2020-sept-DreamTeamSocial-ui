@@ -1,12 +1,17 @@
-.profile_logo {
+.img {
     height: 135px;
     width: 365px;
     position: relative;
-    margin-left: 350px;
+    margin-left: 25%;
 }
 
 .TIL_textarea {
+    min-width: 200px;
+}
 
+.til_container {
+    position: relative;
+    left: 25%;
 }
 
 .add_TIL_container {
@@ -27,8 +32,6 @@
 
 form{
     width: 100%;
-    min-width: 600px;
-    margin-top: 20px;
 }
 
 .form_wrapper {
@@ -67,6 +70,7 @@ form{
 .row {
     margin: 0;
 }
+
 .navigation {
     background-color: #31AFB4;
     display: flex;
@@ -101,22 +105,28 @@ form{
 
 .user_info {
     background-color: #31AFB4;
-    height: calc(100vh - 228px);
+    height: 100vh;
     z-index: 20;
-    top: 228px;
-    position: -webkit-sticky; /* Safari */
-    position: sticky;
+    top: 0;
+    /*position: -webkit-sticky; !* Safari *!*/
+    /*position: sticky;*/
+    position: fixed;
     display: flex;
     flex-direction: column;
-    justify-content: start;
+    justify-content: flex-start;
     text-align: center;
 }
 
-.add_til_form {
+.til_form_enter {
+    min-width: initial;
+}
+
+.til_form {
     text-align: center;
     background-color: #31AFB4;
     border-radius: 10px;
     padding: 10px;
+    margin: 10px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -140,5 +150,11 @@ form{
     }
     .brand_logo {
         margin: 0;
+    }
+    .til_container {
+        left: 0%;
+    }
+    .img {
+        margin-left: 0;
     }
 }

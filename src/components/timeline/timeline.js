@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import '../../App.css';
-import {Link, Redirect} from "react-router-dom";
+import {Redirect} from "react-router-dom";
 
 export default class Timeline extends Component{
-    constructor(props) {
-        super(props);
-    }
+    // constructor(props) {
+    //     super(props);
+    // }
 
     //This function makes requests runs after the component loads which will be usefull to load timelines info.
     // componentDidMount() {
