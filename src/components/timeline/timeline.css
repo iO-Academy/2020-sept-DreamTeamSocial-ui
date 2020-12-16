@@ -116,7 +116,7 @@ form{
 
 .til_header {
     text-align: left;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     margin: 10px;
 }
 
@@ -145,7 +145,6 @@ form{
         flex-direction: column;
         justify-content: space-evenly;
         text-align: center;
-        border-radius: 10px;
     }
     .bio {
         z-index: 20;
@@ -159,8 +158,5 @@ form{
     }
     .img {
         margin-left: 0;
-    }
-    .timeline_header {
-        margin: 20px 0;
     }
 }
