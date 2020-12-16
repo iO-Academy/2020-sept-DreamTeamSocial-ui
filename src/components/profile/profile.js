@@ -84,7 +84,7 @@ class Profile extends Component {
         if (this.state.loggedInUserProfile) {
             return <div className="til_form">
             <form className="til_form_enter" onSubmit={this.sendNewTIL} >
-                <Header title="Add New Thing I Learned:"/>
+                <Header title="Things I Learned:" className="til_header"/>
                 <ul className="form_wrapper">
                     <li className="form_row">
                         <TextareaInput className="TIL_textarea" rows="3" name="New TIL"
@@ -133,9 +133,10 @@ class Profile extends Component {
             <>
                 {userTils.map((post,i) => (
                     <div key={i} className="til_form">
-                        <p>Posted by: {post.username} </p>
-                        <p>Posted at: {this.formatDate(post.createdAt)}</p>
-                        <p>{post.tilPost}</p>
+                      <div className="flex_til_titles"><p>Posted by: {post.username} </p>
+                          <p>Posted at: {this.formatDate(post.createdAt)}</p>
+                      </div>
+                        <p className="til_post_content">{post.tilPost}</p>
                     </div>)
                 )}
             </>

@@ -9,6 +9,7 @@ export class UserInfo extends Component {
         return (
             <div>
                 <HeadingThree name={this.props.username} />
+                <h2>A bit about me:</h2>
                 <Paragraph className="bio" name={this.props.bio} />
             </div>
         )

@@ -85,6 +85,8 @@ form{
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
+    top: -30px;
 }
 
 .brand_logo {
@@ -103,19 +105,7 @@ form{
     text-align: center;
 }
 
-.user_info {
-    background-color: #31AFB4;
-    height: 100vh;
-    z-index: 20;
-    top: 0;
-    /*position: -webkit-sticky; !* Safari *!*/
-    /*position: sticky;*/
-    position: fixed;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    text-align: center;
-}
+
 
 .til_form_enter {
     min-width: initial;
@@ -129,6 +119,23 @@ form{
     margin: 10px;
 }
 
+.til_header {
+    text-align: left;
+    font-size: 1.4rem;
+    margin: 10px;
+}
+
+.flex_til_titles {
+    display: flex;
+    justify-content: space-between;
+    color: white;
+}
+
+.til_post_content {
+    font-style: italic;
+    font-size: 1.4rem;
+}
+
 @media only screen and (max-width: 768px) {
     .top_bar {
         z-index: 20;
@@ -136,7 +143,7 @@ form{
     .user_info {
         z-index: 20;
         height: auto;
-        top: 228px;
+        top: 170px;
         position: -webkit-sticky; /* Safari */
         position: sticky;
         display: flex;
