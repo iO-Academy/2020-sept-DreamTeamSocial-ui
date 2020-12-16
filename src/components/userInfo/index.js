@@ -9,9 +9,9 @@ export class UserInfo extends Component {
 
     render() {
         return (
-            <div className="userInfo">
+            <div>
                 <HeadingThree name={this.props.username} />
-                <Paragraph name={this.props.bio} />
+                <Paragraph className="bio" name={this.props.bio} />
             </div>
         )
     }

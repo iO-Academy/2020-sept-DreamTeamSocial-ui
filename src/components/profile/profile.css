@@ -62,3 +62,80 @@ form{
     border: 0;
     width: 70%;
 }
+
+
+.row {
+    margin: 0;
+}
+.navigation {
+    background-color: #31AFB4;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.branding {
+    min-height: 176px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.brand_logo {
+    margin-left: 25%;
+}
+
+.top_bar {
+    height: 228px;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    text-align: center;
+}
+
+.user_info {
+    background-color: #31AFB4;
+    height: calc(100vh - 228px);
+    z-index: 20;
+    top: 228px;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    text-align: center;
+}
+
+.add_til_form {
+    text-align: center;
+}
+
+@media only screen and (max-width: 768px) {
+    .top_bar {
+        z-index: 20;
+    }
+    .user_info {
+        z-index: 20;
+        height: auto;
+        top: 228px;
+        position: -webkit-sticky; /* Safari */
+        position: sticky;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        text-align: center;
+    }
+    .bio {
+        z-index: 20;
+        display: none;
+    }
+    .brand_logo {
+        margin: 0;
+    }
+}
