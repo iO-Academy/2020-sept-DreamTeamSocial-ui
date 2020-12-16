@@ -6,7 +6,7 @@ export default class Timeline extends Component{
     // constructor(props) {
     //     super(props);
     // }
-    
+
     // componentDidMount() {
     // }
 
