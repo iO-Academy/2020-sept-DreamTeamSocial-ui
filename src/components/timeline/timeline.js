@@ -53,7 +53,6 @@ export default class Timeline extends Component{
     }
 
     async componentDidMount() {
-        console.log('timeline CDM')
         const response =  await this.checkLoginStatus();
         if (response.success) {
             this.setState({loggedInUser: response.info.username, responsedata: true});
@@ -136,6 +135,7 @@ export default class Timeline extends Component{
                                 <Header className="timeline_header" title="My TILTimeline" />
                                 {this.displayTILs()}
                             </div>
+                            <div>{this.databaseErrorMessage()}</div>
                         </div>
                     </div>
                 )

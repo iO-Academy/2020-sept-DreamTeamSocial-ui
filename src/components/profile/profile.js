@@ -56,11 +56,8 @@ class Profile extends Component {
     }
 
     async componentDidMount() {
-        console.log('profile CDM')
         const response =  await this.checkLoginStatus();
         if (response.success) {
-            console.log('profile CDM inside If')
-            console.log(this.state.url)
             this.setState({loggedInUser: response.info.username, responsedata: true});
             this.getUserProfile(this.state.url)
             await this.getTilPosts()
@@ -72,12 +69,6 @@ class Profile extends Component {
         } else {
             this.props.history.push('/');
         }
-    }
-
-    followButton() {
-        // if(!this.state.loggedInUserProfile) {
-        //     return <p>Follow</p>
-        // } button not needed yet
     }
 
     addTILForm() {
@@ -196,6 +187,7 @@ class Profile extends Component {
                                     <Header className="timeline_header" title="My Past TILs" />
                                     {this.displayTILs()}
                                 </div>
+                                <div>{this.databaseErrorMessage()}</div>
                             </div>
                         </div>
                     )
