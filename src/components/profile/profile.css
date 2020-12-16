@@ -147,7 +147,7 @@ form{
         position: -webkit-sticky; /* Safari */
         position: sticky;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         justify-content: space-evenly;
         text-align: center;
     }
