@@ -7,7 +7,7 @@ export class NavBar extends Component {
         return (
             <nav className="navigation">
                 <Link link={`/profile/${this.props.currentUser}`} name="Profile" />
-                {/*<Link link="/timeline" name="Timeline" />*/}
+                <Link link="/timeline" name="Timeline" />
             </nav>
         )
     }

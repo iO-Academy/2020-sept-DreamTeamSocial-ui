@@ -71,17 +71,11 @@ class Profile extends Component {
         }
     }
 
-    followButton() {
-        // if(!this.state.loggedInUserProfile) {
-        //     return <p>Follow</p>
-        // } button not needed yet
-    }
-
     addTILForm() {
         if (this.state.loggedInUserProfile) {
             return <div className="til_form">
             <form className="til_form_enter" onSubmit={this.sendNewTIL} >
-                <Header title="Things I Learned:" className="til_header"/>
+                <Header title="Add A New Thing I Learned:" className="til_header"/>
                 <ul className="form_wrapper">
                     <li className="form_row">
                         <TextareaInput className="TIL_textarea" rows="3" name="New TIL"
@@ -185,13 +179,15 @@ class Profile extends Component {
                             </div>
                             <div className="row page_content">
                                 <div className="col-sm-12 col-md-3 user_info">
-                                    <NavBar />
+                                    <NavBar currentUser={this.state.loggedInUser} />
                                     <UserInfo bio={this.state.UserProfile.bio} username={this.state.UserProfile.username}/>
                                 </div>
                                 <div className="col-sm-12 col-md-9 til_container">
                                     {this.addTILForm()}
+                                    <Header className="timeline_header" title="My Past TILs" />
                                     {this.displayTILs()}
                                 </div>
+                                <div>{this.databaseErrorMessage()}</div>
                             </div>
                         </div>
                     )
