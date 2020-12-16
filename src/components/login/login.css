@@ -72,11 +72,11 @@ form{
 
 .form_row input {
     flex: 3;
+    border: 2px solid #F3A712;
+    border-radius: 5px;
 }
 
 .form_row button {
-    background: gray;
-    color: white;
     border: 0;
     width: 70%;
 }

@@ -1,3 +1,12 @@
+@font-face {
+  font-family: Asap;
+  src: url('/src/fonts/Asap-Regular.ttf')format("truetype");
+}
+
+* {
+  font-family: Asap, sans-serif;
+}
+
 .App {
   text-align: center;
 }
