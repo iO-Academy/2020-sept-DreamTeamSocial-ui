@@ -28,8 +28,6 @@
     background-color: #31AFB4;
 }
 
-/*Form Styling*/
-
 form{
     width: 100%;
 }
@@ -65,7 +63,6 @@ form{
     border: 0;
     width: 70%;
 }
-
 
 .row {
     margin: 0;
@@ -104,8 +101,6 @@ form{
     align-items: center;
     text-align: center;
 }
-
-
 
 .til_form_enter {
     min-width: initial;

@@ -10,8 +10,6 @@ import Header from "../header";
 import TextareaInput from "../textareaInput";
 import Button from "../button";
 
-
-
 class Profile extends Component {
     constructor(props) {
         super(props);
@@ -21,7 +19,7 @@ class Profile extends Component {
                     userTils: [],
                     UserProfile: {
                         username: '',
-                        bio: "I'm a happy little vegemite"
+                        bio: ''
                     },
                     loggedInUserProfile: false,
                     responsedata: false,
@@ -50,13 +48,12 @@ class Profile extends Component {
             if (response.data.success) {
                 this.setState({UserProfile: response.data.info})
             } else {
-                this.setState({UserProfile: {username: 'error could not find user', bio: "I'm a happy little vegemite"}})
+                this.setState({UserProfile: {username: 'error could not find user', bio: ''}})
             }
         }).catch( err => {
             this.props.history.push('/profile/' + this.state.loggedInUser);
         })
     }
-
 
     async componentDidMount() {
         const response =  await this.checkLoginStatus();
@@ -125,11 +122,10 @@ class Profile extends Component {
        return dateOfTil + ' at ' + timeOfTil
     }
 
-
     displayTILs() {
         const userTils = this.state.userTils;
         userTils.reverse()
-       return (
+        return (
             <>
                 {userTils.map((post,i) => (
                     <div key={i} className="til_form">
@@ -142,7 +138,6 @@ class Profile extends Component {
             </>
        )
     }
-
 
     handleChange = (event) => {
         event.preventDefault();
@@ -176,7 +171,6 @@ class Profile extends Component {
             this.setState({databaseError: 'Sorry your TIL wasn\'t submitted, try again later.'})
         })
     }
-
 
     render() {
 

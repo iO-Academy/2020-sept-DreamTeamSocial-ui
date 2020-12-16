@@ -6,8 +6,7 @@ export default class Timeline extends Component{
     // constructor(props) {
     //     super(props);
     // }
-
-    //This function makes requests runs after the component loads which will be usefull to load timelines info.
+    
     // componentDidMount() {
     // }
 
