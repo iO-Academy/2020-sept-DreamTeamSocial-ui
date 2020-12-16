@@ -120,8 +120,8 @@ class Profile extends Component {
     formatDate(date) {
        const splitTimestamp = date.split(/[T.]/);
        const dateOfTil = splitTimestamp[0];
-       const timeOfTil = splitTimestamp[1];
-
+       let timeOfTil = splitTimestamp[1];
+       timeOfTil = timeOfTil.substring(0, timeOfTil.length-3)
        return dateOfTil + ' at ' + timeOfTil
     }
 
