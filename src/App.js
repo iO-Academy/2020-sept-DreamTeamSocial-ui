@@ -6,7 +6,6 @@ import Login from "./components/login/login";
 import Register from "./components/register/register";
 import Profile from "./components/profile/profile";
 import Timeline from "./components/timeline/timeline";
-import axios from "axios";
 
 class App extends Component {
 

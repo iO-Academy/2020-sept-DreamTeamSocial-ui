@@ -4,7 +4,7 @@ import React, {Component} from 'react';
 export class Paragraph extends Component {
     render() {
         return (
-            <p>{this.props.name}</p>
+            <p className={this.props.className}>{this.props.name}</p>
         )
     }
 }
