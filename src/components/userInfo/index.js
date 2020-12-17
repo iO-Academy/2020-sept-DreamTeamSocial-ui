@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {HeadingThree} from "../headingThree";
 import {Paragraph} from "../paragraph";
 import './index.css';
+import FollowingList from "../followingList";
 
 export class UserInfo extends Component {
 

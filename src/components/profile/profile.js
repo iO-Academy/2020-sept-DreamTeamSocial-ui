@@ -10,6 +10,8 @@ import Header from "../header";
 import TextareaInput from "../textareaInput";
 import Button from "../button";
 import {HeadingThree} from "../headingThree";
+import FollowingList from "../followingList";
+import FollowingModal from "../followingModal";
 
 class Profile extends Component {
     constructor(props) {
@@ -27,8 +29,10 @@ class Profile extends Component {
                     },
                     loggedInUserProfile: false,
                     responsedata: false,
-                    databaseError: ''
+                    databaseError: '',
+                    show: false
                 };
+        this.getUserProfile(this.state.url);
     }
 
     checkLoginStatus = async () => {
@@ -67,7 +71,7 @@ class Profile extends Component {
         const response =  await this.checkLoginStatus();
         if (response.success) {
             this.setState({loggedInUser: response.info.username, responsedata: true});
-            this.getUserProfile(this.state.url);
+            // this.getUserProfile(this.state.url);
             this.getUserProfile(this.state.loggedInUser);
             await this.getTilPosts();
             if (this.state.loggedInUser === this.state.url) {
@@ -204,6 +208,12 @@ class Profile extends Component {
         })
     }
 
+    followingModal = () => {
+        console.log(this.state)
+        this.setState({show: true});
+        console.log(this.state)
+    }
+
     render() {
 
         if (this.state.responsedata)
@@ -219,12 +229,15 @@ class Profile extends Component {
                                 <div className="col-sm-12 col-md-3 user_info">
                                     <NavBar currentUser={this.state.loggedInUser} />
                                     <UserInfo bio={this.state.UserProfile.bio} username={this.state.UserProfile.username}/>
+                                    <FollowingList type="onProfile" followingList={this.state.UserProfile.following} />
+                                    <Button name="View All" click={this.followingModal}/>
                                 </div>
                                 <div className="col-sm-12 col-md-9 til_container">
                                     {this.addTILForm()}
                                     {this.displayTILs()}
                                 </div>
                             </div>
+                            <FollowingModal followingList={this.state.UserProfile.following} show={this.state.show} />
                         </div>
                     )
             } else {
