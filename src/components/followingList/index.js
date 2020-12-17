@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import ListItem from "../followingListItem";
-import Button from "../button";
-import FollowingModal from "../followingModal";
 
 export class FollowingList extends Component {
 

@@ -12,7 +12,6 @@ import Button from "../button";
 import { GrClose }  from "react-icons/gr";
 import {HeadingThree} from "../headingThree";
 import FollowingList from "../followingList";
-import FollowingModal from "../followingModal";
 
 class Profile extends Component {
     constructor(props) {
@@ -72,7 +71,6 @@ class Profile extends Component {
         const response =  await this.checkLoginStatus();
         if (response.success) {
             this.setState({loggedInUser: response.info.username, responsedata: true});
-            // this.getUserProfile(this.state.url);
             this.getUserProfile(this.state.loggedInUser);
             await this.getTilPosts();
             if (this.state.loggedInUser === this.state.url) {
