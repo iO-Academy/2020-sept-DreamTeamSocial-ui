@@ -1,5 +1,8 @@
 
 .til_post_content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     font-style: italic;
     font-size: 1.4rem;
 }
@@ -7,5 +10,10 @@
 .flex_til_titles {
     display: flex;
     justify-content: space-between;
+    color: white;
+}
+
+.copy_message {
+    font-size: 1rem;
     color: white;
 }

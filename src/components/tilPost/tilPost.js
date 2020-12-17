@@ -39,7 +39,7 @@ export class TilPost extends Component {
 
     notifyCopied() {
         if (this.state.copied){
-            return <p>Copied to clipboard!</p>
+            return <p className="copy_message">Copied to clipboard!</p>
 
         }
     }
@@ -52,20 +52,25 @@ export class TilPost extends Component {
                     <MetaTags>
                         <title>TILTime</title>
                         <meta name="description" content={this.props.tilPost} />
-                        <meta property="og:url" content={"http://localhost:3000/til/" + this.props.posterName + "/" + this.props.id}/>
+                        <meta property="og:url" content={"http://localhost:3000/profile/" + this.props.posterName + "/" + this.props.id}/>
                         <meta property="og:title" content="TILTime Learning App" />
                         <meta property="og:image" content="http://localhost:3000/icon-192X192.png" />
+                        <meta name="twitter:url" content={"http://localhost:3000/profile/" + this.props.posterName + "/" + this.props.id}/>
                         <meta name="twitter:title" content="TILTime Learning App" />
+                        <meta name="twitter:description" content={this.props.tilPost} />
                         <meta name="twitter:image" content="http://localhost:3000/icon-192X192.png" />
                     </MetaTags>
                 </div>
                 <div key={this.props.i} id={this.props._id} className="til_form">
-                    <div className="flex_til_titles"><p>Posted by: {this.props.posterName} </p>
-                        <Button click={this.handleClick} name="Share"/>
+                    <div className="flex_til_titles">
+                        <p>Posted by: {this.props.posterName} </p>
                         <p>Posted at: {this.props.formatDate(this.props.createdAt)}</p>
+                        <Button click={this.handleClick} name="Share"/>
                     </div>
-                    <p className="til_post_content">{this.props.tilPost}</p>
-                    {this.notifyCopied()}
+                    <div className="til_post_content">
+                        <p>{this.props.tilPost}</p>
+                        {this.notifyCopied()}
+                    </div>
                 </div>
                 </>
         )
