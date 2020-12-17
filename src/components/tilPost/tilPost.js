@@ -14,13 +14,22 @@ export class TilPost extends Component {
 
     handleClick = async (event) => {
         event.preventDefault()
-        this.setState({timeout: true})
-        await this.updateClipboard("http://localhost:3000/profile/" + this.props.posterName + "/" + this.props.id)
-        console.log(this.props)
-        setTimeout(() => {
-            this.setState({copied: false})
-        }, 5000)
-
+        if(navigator.share) {
+            navigator.share({
+                title: "TILTime Social Media App",
+                url: "http://localhost:3000/profile/" + this.props.posterName + "/" + this.props.id,
+                text: this.props.tilPost
+            }).then(() => {
+                console.log('Shared')
+            })
+        } else {
+            this.setState({timeout: true})
+            await this.updateClipboard("http://localhost:3000/profile/" + this.props.posterName + "/" + this.props.id)
+            console.log(this.props)
+            setTimeout(() => {
+                this.setState({copied: false})
+            }, 5000)
+        }
     }
 
     updateClipboard = async (text) => {
