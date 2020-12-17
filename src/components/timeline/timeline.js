@@ -37,6 +37,20 @@ export default class Timeline extends Component{
         })
     }
 
+    logOut = async () => {
+        return axios({
+            method: "POST",
+            withCredentials: true,
+            url: "http://localhost:3001/user/logout"
+        }).then( response => {
+            if(response.data.success) {
+                this.props.history.push('/');
+            } else {
+                console.log('Try again')
+            }
+        })
+    }
+
     getUserProfile = () => {
         axios({
             method: "GET",
@@ -124,7 +138,7 @@ export default class Timeline extends Component{
                         </div>
                         <div className="row page_content">
                             <div className="col-sm-12 col-md-3 user_info">
-                                <NavBar currentUser={this.state.loggedInUser} />
+                                <NavBar logout={this.logOut} currentUser={this.state.loggedInUser} />
                                 <UserInfo bio={this.state.UserProfile.bio} username={this.state.UserProfile.username}/>
                             </div>
                             <div className="col-sm-12 col-md-9 til_container">
