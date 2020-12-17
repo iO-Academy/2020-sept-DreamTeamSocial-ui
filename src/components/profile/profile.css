@@ -165,3 +165,9 @@ form{
         margin: 20px 0;
     }
 }
+@media only screen and (max-width: 400px) {
+    .user_info {
+        position: initial;
+        z-index: 10;
+    }
+}
