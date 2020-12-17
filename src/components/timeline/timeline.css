@@ -1,0 +1,159 @@
+.img {
+    height: 135px;
+    width: 365px;
+    position: relative;
+    margin-left: 25%;
+}
+
+.TIL_textarea {
+    min-width: 200px;
+}
+
+.til_container {
+    position: relative;
+    left: 25%;
+}
+
+.add_TIL_container {
+    display: flex;
+    min-height: 300px;
+    width: 50%;
+    min-width: 800px;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    align-items: stretch;
+    padding: 20px 20px;
+    margin-left: 350px;
+    border-radius: 10px;
+    background-color: #31AFB4;
+}
+
+form{
+    width: 100%;
+}
+
+.form_wrapper {
+    list-style-type: none;
+    padding: 0;
+    border-radius: 3px;
+}
+
+.form_row {
+    display: flex;
+    justify-content: flex-end;
+    padding: .5em;
+}
+
+.form_row label {
+    padding: .5em .5em .5em 0;
+    flex: 1;
+}
+
+.form_row input {
+    flex: 3;
+}
+
+.form_row textarea {
+    flex: 3;
+}
+
+.form_row button {
+    background: gray;
+    color: white;
+    border: 0;
+    width: 70%;
+}
+
+.row {
+    margin: 0;
+}
+
+.navigation {
+    background-color: #31AFB4;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.branding {
+    min-height: 176px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: -30px;
+}
+
+.brand_logo {
+    margin-left: 25%;
+}
+
+.top_bar {
+    height: 228px;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    text-align: center;
+}
+
+.til_form_enter {
+    min-width: initial;
+}
+
+.til_form {
+    text-align: center;
+    background-color: #31AFB4;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+}
+
+.til_header {
+    text-align: left;
+    font-size: 1.4rem;
+    margin: 10px;
+}
+
+
+
+@media only screen and (max-width: 768px) {
+    .top_bar {
+        z-index: 20;
+    }
+    .user_info {
+        z-index: 20;
+        height: auto;
+        top: 170px;
+        position: -webkit-sticky; /* Safari */
+        position: sticky;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        text-align: center;
+    }
+    .bio {
+        z-index: 20;
+        display: none;
+    }
+    .brand_logo {
+        margin: 0;
+    }
+    .til_container {
+        left: 0%;
+    }
+    .img {
+        margin-left: 0;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .user_info {
+        position: initial;
+        z-index: 10;
+    }
+}

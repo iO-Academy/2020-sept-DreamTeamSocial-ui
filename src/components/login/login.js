@@ -83,8 +83,10 @@ export default class Login extends Component{
             return <Redirect to={'/profile/' + this.state.loggedInUser}/>
         } else {
             return (
-                <div className="main_container">
-                    <Branding className="loginLogo"/>
+                <div className="col-xs-12">
+                    <div className="logo_box">
+                        <img src="TILTime-logo.png" alt="Logo"/>
+                    </div>
                     <div className='container'>
                         <div className="link_button">
                             <Link to='/register'>

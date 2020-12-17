@@ -6,7 +6,7 @@ import Login from "./components/login/login";
 import Register from "./components/register/register";
 import Profile from "./components/profile/profile";
 import Timeline from "./components/timeline/timeline";
-import axios from "axios";
+import SingleTilPage from "./components/singleTilPage/singleTilPage";
 
 class App extends Component {
 
@@ -24,7 +24,8 @@ class App extends Component {
                         <Route exact path="/" render={(routeProps) => (<Login {...routeProps} />)}/>
                         <Route path="/register" render={(routeProps) => (<Register {...routeProps} />)}/>
                         <Route path="/timeline" render={(routeProps) => (<Timeline {...routeProps} />)}/>
-                        <Route path="/profile/:user" render={(routeProps) => (<Profile {...routeProps} />)}/>
+                        <Route exact path="/profile/:user/:id" render={(routeProps) => (<SingleTilPage {...routeProps} />)}/>
+                        <Route exact path="/profile/:user" render={(routeProps) => (<Profile {...routeProps} />)}/>
                     </Switch>
                 </div>
             </Router>
