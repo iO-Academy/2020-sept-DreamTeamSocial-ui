@@ -119,16 +119,7 @@ form{
     margin: 10px;
 }
 
-.flex_til_titles {
-    display: flex;
-    justify-content: space-between;
-    color: white;
-}
 
-.til_post_content {
-    font-style: italic;
-    font-size: 1.4rem;
-}
 
 @media only screen and (max-width: 768px) {
     .top_bar {
