@@ -23,7 +23,7 @@
   "theme_color": "#000000",
   "background_color": "#ffffff",
   "permissions": [
-    "clipboardWrite",
-    "clipboardRead"
+    "clipboard-write",
+    "clipboard-read"
   ]
 }

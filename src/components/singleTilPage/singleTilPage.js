@@ -4,7 +4,6 @@ import {NavBar} from "../navbar";
 import {Branding} from "../branding";
 import {UserInfo} from "../userInfo";
 import axios from "axios";
-import './timeline.css';
 import Header from "../header";
 import {TilPost} from "../tilPost/tilPost";
 
@@ -22,6 +21,7 @@ export default class SingleTilPage extends Component{
             },
             loggedInUserProfile: false,
             databaseError: '',
+            responsedata: false,
             postId: props.match.params.id
         };
     }
@@ -104,7 +104,7 @@ export default class SingleTilPage extends Component{
         return (
             <>
                 {userTils.map((post,i) => (
-                    <TilPost formatDate={this.formatDate} username={post.username} id={post._id} i={i} createdAt={post.createdAt} tilPost={post.tilPost}/>)
+                    <TilPost formatDate={this.formatDate} posterName={post.username} id={post._id} i={i} createdAt={post.createdAt} tilPost={post.tilPost}/>)
                 )}
             </>
         )
