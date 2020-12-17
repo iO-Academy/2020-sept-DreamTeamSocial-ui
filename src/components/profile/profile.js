@@ -32,9 +32,10 @@ class Profile extends Component {
                     loggedInUserProfile: false,
                     responsedata: false,
                     databaseError: '',
-                    show: false
+                    show: false,
+                    receivedFollowingResponse: false
                 };
-        this.getUserProfile(this.state.url);
+
     }
 
     checkLoginStatus = async () => {
@@ -71,7 +72,7 @@ class Profile extends Component {
         }).then( response => {
             if (response.data.success) {
                 if (username === this.state.url) {
-                    this.setState({UserProfile: response.data.info})
+                    this.setState({UserProfile: response.data.info, receivedFollowingResponse: true})
                 } else {
                     this.setState({loggedInUserFollowing: response.data.info.following});
                 }
@@ -87,6 +88,7 @@ class Profile extends Component {
         const response =  await this.checkLoginStatus();
         if (response.success) {
             this.setState({loggedInUser: response.info.username, responsedata: true});
+            this.getUserProfile(this.state.url);
             this.getUserProfile(this.state.loggedInUser);
             await this.getTilPosts();
             if (this.state.loggedInUser === this.state.url) {
@@ -233,7 +235,7 @@ class Profile extends Component {
             <div className={"backgroundModal " + showModalClass}>
                 <div className="followingModal">
                     <Button name={<GrClose />} click={this.followingModal} />
-                    <FollowingList type="modal" followingList={this.state.UserProfile.following} />
+                    <FollowingList receivedFollowingResponse={this.state.receivedFollowingResponse} type="modal" followingList={this.state.UserProfile.following} />
                 </div>
             </div>
         )
@@ -255,7 +257,7 @@ class Profile extends Component {
                                     <NavBar logout={this.logOut} currentUser={this.state.loggedInUser} />
                                     <UserInfo bio={this.state.UserProfile.bio} username={this.state.UserProfile.username}/>
                                     <div className="followingSection">
-                                        <FollowingList type="onProfile" followingList={this.state.UserProfile.following} />
+                                        <FollowingList receivedFollowingResponse={this.state.receivedFollowingResponse} type="onProfile" followingList={this.state.UserProfile.following} />
                                         <Button name="View All" click={this.followingModal}/>
                                     </div>
                                 </div>

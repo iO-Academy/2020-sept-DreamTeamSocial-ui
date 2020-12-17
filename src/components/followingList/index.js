@@ -20,27 +20,40 @@ export class FollowingList extends Component {
         this.setState({firstTenFollowing: firstTen})
     }
 
+    componentWillReceiveProps({receivedFollowingResponse}) {
+        this.setState({...this.state,receivedFollowingResponse})
+    }
+
     render() {
-        if (this.state.firstTenFollowing.length > 0) {
-            return (
-                <div className="followingList">
-                    <h2>Following:</h2>
-                    <ul>
-                        {this.state.firstTenFollowing.map((user) => {
-                            return <ListItem username={user} />
-                        })}
-                    </ul>
-                </div>
-            )
+        if (this.state.receivedFollowingResponse === false){
+            return <div className="followingList">
+                <h2>Following:</h2>
+                <ul>
+                    <li>Not following anyone.</li>
+                </ul>
+            </div>
         } else {
-            return (
-                <div className="followingList">
-                    <h2>Following:</h2>
-                    <ul>
-                        <li>Not following anyone.</li>
-                    </ul>
-                </div>
-            )
+            if (this.state.firstTenFollowing.length > 0) {
+                return (
+                    <div className="followingList">
+                        <h2>Following:</h2>
+                        <ul>
+                            {this.state.firstTenFollowing.map((user) => {
+                                return <ListItem username={user} />
+                            })}
+                        </ul>
+                    </div>
+                )
+            } else {
+                return (
+                    <div className="followingList">
+                        <h2>Following:</h2>
+                        <ul>
+                            <li>Not following anyone.</li>
+                        </ul>
+                    </div>
+                )
+            }
         }
     }
 }
