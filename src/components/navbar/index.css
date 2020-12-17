@@ -5,7 +5,7 @@ nav a {
     font-size: 1.5rem;
     background-color: white;
     border-radius: 10px;
-    margin: 20px;
+    margin: 20px 8px;
 }
 
 nav a:hover {
