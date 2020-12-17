@@ -124,7 +124,7 @@ class Profile extends Component {
         return (
             <>
                 {userTils.map((post,i) => (
-                    <TilPost formatDate={this.formatDate} username={post.username} _id={post._id} i={i} createdAt={post.createdAt} tilPost={post.tilPost}/>
+                    <TilPost formatDate={this.formatDate} posterName={post.username} id={post._id} i={i} createdAt={post.createdAt} tilPost={post.tilPost}/>
                     )
                 )}
             </>

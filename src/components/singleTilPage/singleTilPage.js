@@ -9,7 +9,7 @@ import Header from "../header";
 import {TilPost} from "../tilPost/tilPost";
 
 
-export default class Timeline extends Component{
+export default class SingleTilPage extends Component{
 
     constructor(props) {
         super(props);
@@ -21,9 +21,12 @@ export default class Timeline extends Component{
                 bio: ''
             },
             loggedInUserProfile: false,
-            databaseError: ''
+            databaseError: '',
+            postId: props.match.params.id
         };
     }
+
+
 
     checkLoginStatus = async () => {
         return axios({
@@ -73,7 +76,7 @@ export default class Timeline extends Component{
         return axios({
             method: "GET",
             withCredentials: true,
-            url: "http://localhost:3001/til/"
+            url: "http://localhost:3001/til/" + this.state.url + '?id=' + this.state.postId
         }).then( response => {
             if(response.data.success){
                 this.setState({userTils: response.data.info})
@@ -85,6 +88,9 @@ export default class Timeline extends Component{
         })
     }
 
+    //need to get username and id
+
+
     formatDate(date) {
         const splitTimestamp = date.split(/[T.]/);
         const dateOfTil = splitTimestamp[0];
@@ -95,11 +101,10 @@ export default class Timeline extends Component{
 
     displayTILs() {
         const userTils = this.state.userTils;
-        userTils.reverse()
         return (
             <>
                 {userTils.map((post,i) => (
-                    <TilPost formatDate={this.formatDate} posterName={post.username} id={post._id} i={i} createdAt={post.createdAt} tilPost={post.tilPost}/>)
+                    <TilPost formatDate={this.formatDate} username={post.username} id={post._id} i={i} createdAt={post.createdAt} tilPost={post.tilPost}/>)
                 )}
             </>
         )
@@ -128,7 +133,7 @@ export default class Timeline extends Component{
                                 <UserInfo bio={this.state.UserProfile.bio} username={this.state.UserProfile.username}/>
                             </div>
                             <div className="col-sm-12 col-md-9 til_container">
-                                <Header className="timeline_header" title="My TILTimeline" />
+                                <Header className="timeline_header" title="Shared with You:" />
                                 {this.displayTILs()}
                             </div>
                             <div>{this.databaseErrorMessage()}</div>

@@ -23,7 +23,8 @@ class App extends Component {
                         <Route exact path="/" render={(routeProps) => (<Login {...routeProps} />)}/>
                         <Route path="/register" render={(routeProps) => (<Register {...routeProps} />)}/>
                         <Route path="/timeline" render={(routeProps) => (<Timeline {...routeProps} />)}/>
-                        <Route path="/profile/:user" render={(routeProps) => (<Profile {...routeProps} />)}/>
+                        <Route exact path="/profile/:user" render={(routeProps) => (<Profile {...routeProps} />)}/>
+                        <Route path="/profile/:user/:id" render={(routeProps) => (<Profile {...routeProps} />)}/>
                     </Switch>
                 </div>
             </Router>
