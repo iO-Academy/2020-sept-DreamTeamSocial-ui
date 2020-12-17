@@ -78,7 +78,6 @@ form{
 
 .branding {
     min-height: 176px;
-    background-color: white;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -120,16 +119,7 @@ form{
     margin: 10px;
 }
 
-.flex_til_titles {
-    display: flex;
-    justify-content: space-between;
-    color: white;
-}
 
-.til_post_content {
-    font-style: italic;
-    font-size: 1.4rem;
-}
 
 @media only screen and (max-width: 768px) {
     .top_bar {
@@ -158,5 +148,12 @@ form{
     }
     .img {
         margin-left: 0;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .user_info {
+        position: initial;
+        z-index: 10;
     }
 }

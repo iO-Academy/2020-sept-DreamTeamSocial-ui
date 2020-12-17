@@ -6,6 +6,7 @@ import {UserInfo} from "../userInfo";
 import axios from "axios";
 import './timeline.css';
 import Header from "../header";
+import {TilPost} from "../tilPost/tilPost";
 
 
 export default class Timeline extends Component{
@@ -33,6 +34,20 @@ export default class Timeline extends Component{
             return response.data
         }).catch( err => {
             this.props.history.push('/');
+        })
+    }
+
+    logOut = async () => {
+        return axios({
+            method: "POST",
+            withCredentials: true,
+            url: "http://localhost:3001/user/logout"
+        }).then( response => {
+            if(response.data.success) {
+                this.props.history.push('/');
+            } else {
+                console.log('Try again')
+            }
         })
     }
 
@@ -98,12 +113,7 @@ export default class Timeline extends Component{
         return (
             <>
                 {userTils.map((post,i) => (
-                    <div key={i} className="til_form">
-                        <div className="flex_til_titles"><p>Posted by: {post.username} </p>
-                            <p>Posted at: {this.formatDate(post.createdAt)}</p>
-                        </div>
-                        <p className="til_post_content">{post.tilPost}</p>
-                    </div>)
+                    <TilPost formatDate={this.formatDate} posterName={post.username} id={post._id} i={i} createdAt={post.createdAt} tilPost={post.tilPost}/>)
                 )}
             </>
         )
@@ -128,7 +138,7 @@ export default class Timeline extends Component{
                         </div>
                         <div className="row page_content">
                             <div className="col-sm-12 col-md-3 user_info">
-                                <NavBar currentUser={this.state.loggedInUser} />
+                                <NavBar logout={this.logOut} currentUser={this.state.loggedInUser} />
                                 <UserInfo bio={this.state.UserProfile.bio} username={this.state.UserProfile.username}/>
                             </div>
                             <div className="col-sm-12 col-md-9 til_container">
@@ -146,5 +156,4 @@ export default class Timeline extends Component{
             return ( <div>Loading</div>) // add loading gif if we get to it but this is barely noticable anyway
         }
     }
-
 }

@@ -207,6 +207,7 @@ form{
 .branding {
     min-height: 176px;
     background-color: white;
+    border-bottom: #F3A712 solid 1px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -290,5 +291,11 @@ form{
     }
     .timeline_header {
         margin: 20px 0;
+    }
+}
+@media only screen and (max-width: 600px) {
+    .user_info {
+        position: initial;
+        z-index: 10;
     }
 }

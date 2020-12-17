@@ -9,9 +9,11 @@ import './profile.css';
 import Header from "../header";
 import TextareaInput from "../textareaInput";
 import Button from "../button";
+import {TilPost} from "../tilPost/tilPost";
 import { GrClose }  from "react-icons/gr";
 import {HeadingThree} from "../headingThree";
 import FollowingList from "../followingList";
+
 
 class Profile extends Component {
     constructor(props) {
@@ -44,6 +46,20 @@ class Profile extends Component {
             return response.data
         }).catch( err => {
             this.props.history.push('/');
+        })
+    }
+
+    logOut = async () => {
+        return axios({
+            method: "POST",
+            withCredentials: true,
+            url: "http://localhost:3001/user/logout"
+        }).then( response => {
+            if(response.data.success) {
+                this.props.history.push('/');
+            } else {
+                console.log('Try again')
+            }
         })
     }
 
@@ -145,8 +161,8 @@ class Profile extends Component {
             } else {
                 this.setState({userTils: 'Nothing to see here'})
             }
-        }).catch (err => {
-            this.setState({databaseError: 'Sorry your TILs were not retrieved.'})
+        }).catch( err => {
+            //Need to error handle this later
         })
     }
 
@@ -164,12 +180,8 @@ class Profile extends Component {
         return (
             <>
                 {userTils.map((post,i) => (
-                    <div key={i} className="til_form">
-                      <div className="flex_til_titles"><p>Posted by: {post.username} </p>
-                          <p>Posted at: {this.formatDate(post.createdAt)}</p>
-                      </div>
-                        <p className="til_post_content">{post.tilPost}</p>
-                    </div>)
+                    <TilPost formatDate={this.formatDate} posterName={post.username} id={post._id} i={i} createdAt={post.createdAt} tilPost={post.tilPost}/>
+                    )
                 )}
             </>
        )
@@ -200,10 +212,10 @@ class Profile extends Component {
                 event.target.reset()
                 this.getTilPosts()
             } else {
-                this.setState({databaseError: 'Sorry your TIL wasn\'t submitted, try again later.'})
+                this.setState({databaseError: 'Sorry your TIL was too long, please shorten and try again.'})
             }
         }).catch( err => {
-            this.setState({databaseError: 'Sorry your TIL wasn\'t submitted, try again later.'})
+            this.setState({databaseError: 'Sorry your TIL was too long, please shorten and try again.'})
         })
     }
 
@@ -240,7 +252,7 @@ class Profile extends Component {
                             </div>
                             <div className="row page_content">
                                 <div className="col-sm-12 col-md-3 user_info">
-                                    <NavBar currentUser={this.state.loggedInUser} />
+                                    <NavBar logout={this.logOut} currentUser={this.state.loggedInUser} />
                                     <UserInfo bio={this.state.UserProfile.bio} username={this.state.UserProfile.username}/>
                                     <div className="followingSection">
                                         <FollowingList type="onProfile" followingList={this.state.UserProfile.following} />
@@ -252,7 +264,6 @@ class Profile extends Component {
                                     <Header className="timeline_header" title="My Past TILs" />
                                     {this.displayTILs()}
                                 </div>
-                                <div>{this.databaseErrorMessage()}</div>
                             </div>
                             {this.displayFollowingModal()}
                         </div>

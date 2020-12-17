@@ -9,6 +9,25 @@ nav a {
 }
 
 nav a:hover {
-    background-color: #F3A712;
+    color: #282c34;
+}
+
+.logout {
+    border: none;
+    border-radius: 20px;
+    font-size: 1rem;
+    background: white;
+    padding: 0px;
+    box-shadow: 0px 0px 0px 0px black;
+}
+
+.logout {
+    padding: 0 8px;
     text-decoration: none;
+    color: #31AFB4;
+    font-size: 1.5rem;
+    background-color: white;
+    border-radius: 10px;
+    margin: 20px 8px;
+    margin-left: 10%;
 }
