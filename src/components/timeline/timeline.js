@@ -6,6 +6,7 @@ import {UserInfo} from "../userInfo";
 import axios from "axios";
 import './timeline.css';
 import Header from "../header";
+import {TilPost} from "../tilPost/tilPost";
 
 
 export default class Timeline extends Component{
@@ -98,12 +99,7 @@ export default class Timeline extends Component{
         return (
             <>
                 {userTils.map((post,i) => (
-                    <div key={i} className="til_form">
-                        <div className="flex_til_titles"><p>Posted by: {post.username} </p>
-                            <p>Posted at: {this.formatDate(post.createdAt)}</p>
-                        </div>
-                        <p className="til_post_content">{post.tilPost}</p>
-                    </div>)
+                    <TilPost formatDate={this.formatDate} username={post.username} _id={post._id} i={i} createdAt={post.createdAt} tilPost={post.tilPost}/>)
                 )}
             </>
         )

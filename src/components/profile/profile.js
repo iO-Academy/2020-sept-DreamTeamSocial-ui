@@ -9,23 +9,8 @@ import './profile.css';
 import Header from "../header";
 import TextareaInput from "../textareaInput";
 import Button from "../button";
-
-import {
-    FacebookShareButton,
-    InstapaperShareButton,
-    LineShareButton,
-    LinkedinShareButton,
-    TwitterShareButton,
-    WhatsappShareButton,
-} from "react-share";
-import {
-    FacebookIcon,
-    FacebookMessengerIcon,
-    InstapaperIcon,
-    LinkedinIcon,
-    TwitterIcon,
-    WhatsappIcon,
-} from "react-share";
+import MetaTags from 'react-meta-tags';
+import {TilPost} from "../tilPost/tilPost";
 
 class Profile extends Component {
     constructor(props) {
@@ -139,24 +124,8 @@ class Profile extends Component {
         return (
             <>
                 {userTils.map((post,i) => (
-                    <div key={i} className="til_form">
-                      <div className="flex_til_titles"><p>Posted by: {post.username} </p>
-                          <p>Posted at: {this.formatDate(post.createdAt)}</p>
-                      </div>
-                        <p className="til_post_content">{post.tilPost}</p>
-                        <TwitterShareButton
-                            url="http://localhost:3000"
-                            quote='Hi'
-                            hashtag="#programing joke">
-                            <TwitterIcon logoFillColor="white" size={32} borderRadius='5px' />
-                        </TwitterShareButton>
-                        <FacebookShareButton
-                            url="https://www.facebook.com"
-                            quote='Hi'
-                            hashtag="#programing joke">
-                            <FacebookIcon logoFillColor="white" size={32} borderRadius='5px' />
-                        </FacebookShareButton>
-                    </div>)
+                    <TilPost formatDate={this.formatDate} username={post.username} _id={post._id} i={i} createdAt={post.createdAt} tilPost={post.tilPost}/>
+                    )
                 )}
             </>
        )
