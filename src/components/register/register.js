@@ -141,8 +141,7 @@ class Register extends Component{
                     }
                 })
                 .catch((error) => {
-                    //sorry or servers are down please try again later
-                    console.log(error)
+                    this.setState({databaseError: true, databaseMessage: 'Fetching from database failed'})
                 })
         } else{
             console.error('Invalid Form')
