@@ -7,10 +7,12 @@ export class UserInfo extends Component {
 
     render() {
         return (
-            <div>
+            <div className="bioContainer">
                 <HeadingThree name={this.props.username} />
-                <h2 className="bio">A bit about me:</h2>
-                <Paragraph className="bio" name={this.props.bio} />
+                <div className="bioStyling">
+                    <h2 className="bio">A bit about me:</h2>
+                    <Paragraph className="bio" name={this.props.bio} />
+                </div>
             </div>
         )
     }
