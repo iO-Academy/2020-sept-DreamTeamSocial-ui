@@ -119,7 +119,7 @@ class Profile extends Component {
                 this.setState({userTils: 'Nothing to see here'})
             }
         }).catch( err => {
-            this.setState({databaseError: 'Sorry your TILs were not retrieved.'})
+            //Need to error handle this later
         })
     }
 
@@ -170,10 +170,10 @@ class Profile extends Component {
                 event.target.reset()
                 this.getTilPosts()
             } else {
-                this.setState({databaseError: 'Sorry your TIL wasn\'t submitted, try again later.'})
+                this.setState({databaseError: 'Sorry your TIL was too long, please shorten and try again.'})
             }
         }).catch( err => {
-            this.setState({databaseError: 'Sorry your TIL wasn\'t submitted, try again later.'})
+            this.setState({databaseError: 'Sorry your TIL was too long, please shorten and try again.'})
         })
     }
 
@@ -198,7 +198,6 @@ class Profile extends Component {
                                     <Header className="timeline_header" title="My Past TILs" />
                                     {this.displayTILs()}
                                 </div>
-                                <div>{this.databaseErrorMessage()}</div>
                             </div>
                         </div>
                     )
