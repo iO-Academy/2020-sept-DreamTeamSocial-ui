@@ -87,10 +87,11 @@ class Profile extends Component {
     async componentDidMount() {
         const response =  await this.checkLoginStatus();
         if (response.success) {
-            this.setState({loggedInUser: response.info.username, responsedata: true});
+            this.setState({loggedInUser: response.info.username});
             this.getUserProfile(this.state.url);
             this.getUserProfile(this.state.loggedInUser);
             await this.getTilPosts();
+            this.setState({responsedata: true});
             if (this.state.loggedInUser === this.state.url) {
                 this.setState({loggedInUserProfile: true})
             } else {
