@@ -9,17 +9,21 @@ import './profile.css';
 import Header from "../header";
 import TextareaInput from "../textareaInput";
 import Button from "../button";
+import {HeadingThree} from "../headingThree";
 
 class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = {url: props.match.params.user,
                     loggedInUser: false,
+                    loggedInUserFollowing: [],
+                    buttonName: 'Follow',
                     tilPost: '',
                     userTils: [],
                     UserProfile: {
                         username: '',
-                        bio: ''
+                        bio: '',
+                        following: []
                     },
                     loggedInUserProfile: false,
                     responsedata: false,
@@ -46,7 +50,11 @@ class Profile extends Component {
             url: "http://localhost:3001/user/" + username
         }).then( response => {
             if (response.data.success) {
-                this.setState({UserProfile: response.data.info})
+                if (username === this.state.url) {
+                    this.setState({UserProfile: response.data.info})
+                } else {
+                    this.setState({loggedInUserFollowing: response.data.info.following});
+                }
             } else {
                 this.setState({UserProfile: {username: 'error could not find user', bio: ''}})
             }
@@ -59,22 +67,20 @@ class Profile extends Component {
         const response =  await this.checkLoginStatus();
         if (response.success) {
             this.setState({loggedInUser: response.info.username, responsedata: true});
-            this.getUserProfile(this.state.url)
-            await this.getTilPosts()
+            this.getUserProfile(this.state.url);
+            this.getUserProfile(this.state.loggedInUser);
+            await this.getTilPosts();
             if (this.state.loggedInUser === this.state.url) {
                 this.setState({loggedInUserProfile: true})
             } else {
                 this.setState({loggedInUserProfile: false})
             }
+            if (this.state.loggedInUserFollowing.includes(this.state.url)) {
+                this.setState({buttonName: 'Following'});
+            }
         } else {
             this.props.history.push('/');
         }
-    }
-
-    followButton() {
-        // if(!this.state.loggedInUserProfile) {
-        //     return <p>Follow</p>
-        // } button not needed yet
     }
 
     addTILForm() {
@@ -94,8 +100,35 @@ class Profile extends Component {
             </form>
             </div>
         } else {
-            return <h1>Placeholder for follow</h1>
-        }
+                return (
+                    <div className="followButton">
+                        <Button click={this.toggleFollow} name={this.state.buttonName} />
+                        <HeadingThree name={this.state.UserProfile.username} />
+                    </div>
+                )
+            }
+    }
+
+    toggleFollow = async () => {
+        let requestUrl = "http://localhost:3001/user/" + this.state.loggedInUser + "?user2=" + this.state.url;
+        axios({
+            method: "PUT",
+            withCredentials: true,
+            url: requestUrl
+        }).then (response => {
+            if (response.data.success) {
+                this.getUserProfile(this.state.loggedInUser);
+                if (this.state.buttonName === 'Follow') {
+                    this.setState({buttonName: 'Following'});
+                } else {
+                    this.setState({buttonName: 'Follow'});
+                }
+            } else {
+                this.setState({databaseError: 'Unexpected error occurred. Please try again.'})
+            }
+        }).catch( err => {
+            this.setState({databaseError: 'Sorry could not follow at this time.'})
+        })
     }
 
     getTilPosts = async () => {
@@ -103,13 +136,13 @@ class Profile extends Component {
             method: "GET",
             withCredentials: true,
             url: "http://localhost:3001/til/" + this.state.url
-        }).then( response => {
-            if(response.data.success){
+        }).then (response => {
+            if (response.data.success){
                 this.setState({userTils: response.data.info})
             } else {
                 this.setState({userTils: 'Nothing to see here'})
             }
-        }).catch( err => {
+        }).catch (err => {
             this.setState({databaseError: 'Sorry your TILs were not retrieved.'})
         })
     }
@@ -143,7 +176,6 @@ class Profile extends Component {
         event.preventDefault();
         const value = event.target.value;
         this.setState({tilPost: value})
-        console.log(this.state.tilPost)
     }
 
     databaseErrorMessage() {
@@ -185,7 +217,7 @@ class Profile extends Component {
                             </div>
                             <div className="row page_content">
                                 <div className="col-sm-12 col-md-3 user_info">
-                                    <NavBar />
+                                    <NavBar currentUser={this.state.loggedInUser} />
                                     <UserInfo bio={this.state.UserProfile.bio} username={this.state.UserProfile.username}/>
                                 </div>
                                 <div className="col-sm-12 col-md-9 til_container">
