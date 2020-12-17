@@ -165,7 +165,7 @@ form{
         margin: 20px 0;
     }
 }
-@media only screen and (max-width: 400px) {
+@media only screen and (max-width: 600px) {
     .user_info {
         position: initial;
         z-index: 10;
