@@ -48,8 +48,7 @@ export class TilPost extends Component {
 
     notifyCopied() {
         if (this.state.copied){
-            return <p className="copy_message">Copied to clipboard!</p>
-
+            return <p className="copy_message">Link copied to clipboard!</p>
         }
     }
 
@@ -73,8 +72,8 @@ export class TilPost extends Component {
                 <div key={this.props.i} id={this.props._id} className="til_form">
                     <div className="flex_til_titles">
                         <p>Posted by: {this.props.posterName} </p>
-                        <p>Posted at: {this.props.formatDate(this.props.createdAt)}</p>
-                        <Button click={this.handleClick} name="Share"/>
+                        <p>Posted: {this.props.formatDate(this.props.createdAt)}</p>
+                        <Button className="share_button" click={this.handleClick} name="Share"/>
                     </div>
                     <div className="til_post_content">
                         <p>{this.props.tilPost}</p>

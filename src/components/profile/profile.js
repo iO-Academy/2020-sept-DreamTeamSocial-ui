@@ -9,7 +9,6 @@ import './profile.css';
 import Header from "../header";
 import TextareaInput from "../textareaInput";
 import Button from "../button";
-import MetaTags from 'react-meta-tags';
 import {TilPost} from "../tilPost/tilPost";
 
 class Profile extends Component {

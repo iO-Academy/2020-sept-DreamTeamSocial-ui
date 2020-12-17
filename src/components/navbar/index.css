@@ -11,3 +11,11 @@ nav a {
 nav a:hover {
     color: #282c34;
 }
+
+.logout {
+    margin-left: 10%;
+}
+
+.logout svg {
+    margin: 10px 0;
+}
