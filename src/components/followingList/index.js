@@ -15,7 +15,7 @@ export class FollowingList extends Component {
     componentDidMount() {
         let firstTen;
         if (this.props.type === 'onProfile') {
-            firstTen = this.props.followingList.slice(0, 10);
+            firstTen = this.props.followingList.slice(0, 8);
         } else {
             firstTen = this.props.followingList;
         }

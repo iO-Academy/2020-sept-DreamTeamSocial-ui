@@ -9,6 +9,7 @@ import './profile.css';
 import Header from "../header";
 import TextareaInput from "../textareaInput";
 import Button from "../button";
+import { GrClose }  from "react-icons/gr";
 import {HeadingThree} from "../headingThree";
 import FollowingList from "../followingList";
 import FollowingModal from "../followingModal";
@@ -209,9 +210,23 @@ class Profile extends Component {
     }
 
     followingModal = () => {
-        console.log(this.state)
-        this.setState({show: true});
-        console.log(this.state)
+        if (this.state.show) {
+            this.setState({show: false});
+        } else {
+            this.setState({show: true});
+        }
+    }
+
+    displayFollowingModal() {
+        let showModalClass = (this.state.show ? '' : 'hidden');
+        return (
+            <div className={"backgroundModal " + showModalClass}>
+                <div className="followingModal">
+                    <Button name={<GrClose />} click={this.followingModal} />
+                    <FollowingList type="modal" followingList={this.state.UserProfile.following} />
+                </div>
+            </div>
+        )
     }
 
     render() {
@@ -229,15 +244,17 @@ class Profile extends Component {
                                 <div className="col-sm-12 col-md-3 user_info">
                                     <NavBar currentUser={this.state.loggedInUser} />
                                     <UserInfo bio={this.state.UserProfile.bio} username={this.state.UserProfile.username}/>
-                                    <FollowingList type="onProfile" followingList={this.state.UserProfile.following} />
-                                    <Button name="View All" click={this.followingModal}/>
+                                    <div className="followingSection">
+                                        <FollowingList type="onProfile" followingList={this.state.UserProfile.following} />
+                                        <Button name="View All" click={this.followingModal}/>
+                                    </div>
                                 </div>
                                 <div className="col-sm-12 col-md-9 til_container">
                                     {this.addTILForm()}
                                     {this.displayTILs()}
                                 </div>
                             </div>
-                            <FollowingModal followingList={this.state.UserProfile.following} show={this.state.show} />
+                            {this.displayFollowingModal()}
                         </div>
                     )
             } else {

@@ -8,20 +8,28 @@
     flex-direction: column;
     justify-content: flex-start;
     text-align: center;
+    align-items: center;
 }
 
 .user_info h3 {
-    margin: 50px 0;
+    margin: 20px 0;
     padding: 10px;
     font-size: 1.7rem;
 }
 
 .user_info h2 {
     font-size: 1.2rem;
+    margin: 10px;
 }
 
 .bio {
-    margin: 50px;
-    font-size: 1.2rem;
+    margin: 20px;
     font-style: italic;
+}
+
+
+
+.bio p {
+    font-size: 0.7rem;
+    margin-top: 7px;
 }
